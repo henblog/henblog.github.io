@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MYBlog</title>
+  
+  
+  <link href="http://henblog.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://henblog.github.io/"/>
+  <updated>2022-07-08T01:33:10.318Z</updated>
+  <id>http://henblog.github.io/</id>
+  
+  <author>
+    <name>henblog</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://henblog.github.io/2022/07/08/hello-world/"/>
+    <id>http://henblog.github.io/2022/07/08/hello-world/</id>
+    <published>2022-07-08T01:33:10.318Z</published>
+    <updated>2022-07-08T01:33:10.318Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle expdp/impdp总结</title>
+    <link href="http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/"/>
+    <id>http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/</id>
+    <published>2022-07-08T01:25:00.000Z</published>
+    <updated>2022-07-08T07:32:17.005Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Oracle-expdp-x2F-impdp总结&quot;&gt;&lt;a href=&quot;#Oracle-expdp-x2F-impdp总结&quot; class=&quot;headerlink&quot; title=&quot;Oracle expdp&amp;#x2F;impdp总结&quot;&gt;&lt;/a&gt;Oracle</summary>
+        
+      
+    
+    
+    
+    <category term="Oracle" scheme="http://henblog.github.io/categories/Oracle/"/>
+    
+    
+    <category term="oracle" scheme="http://henblog.github.io/tags/oracle/"/>
+    
+    <category term="数据迁移" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/"/>
+    
+  </entry>
+  
+</feed>
