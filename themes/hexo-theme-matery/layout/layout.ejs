@@ -3,6 +3,17 @@
 <%- partial('_partial/head') %>
 
 <body>
+    <%- partial('_widget/day-night.ejs') %>
+	<script>
+		/* 模式判断 */
+		if (localStorage.getItem('isDark') === '1') {
+			document.body.classList.add('DarkMode');
+			$('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+		} else {
+			document.body.classList.remove('DarkMode');
+			$('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+		}
+	</script>
     <%- partial('_partial/header') %>
     <%- body %>
 

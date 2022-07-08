@@ -168,7 +168,7 @@ socialLink:
   weibo: # https://weibo.com/xxx
   zhihu: # https://www.zhihu.com/xxx
   rss: true # true、false
-
+  bilibili: https://space.bilibili.com/102520840
 # Whether to activate the Post TOC, and Configure which title types are supported by TOC support.
 # You can add `toc: false` to the Front-matter of a post to turn off the TOC.
 # 是否激活文章 TOC 功能，并配置TOC支持选中哪些标题类型，这是全局配置。
@@ -419,7 +419,7 @@ changyan:
 # 配置是否在 header 中显示 fork me on github 的图标，默认为true，你可以修改为你的仓库地址.
 githubLink:
   enable: true
-  url: https://github.com/blinkfox/hexo-theme-matery
+  url: https://github.com/henblog
   title: Fork Me
 
 # The configuration of the Twikoo comment module is not activated by default.
@@ -498,7 +498,7 @@ libs:
     lightgallery: /libs/lightGallery/js/lightgallery-all.min.js # V1.10.0
     typed: /libs/typed/typed.js
     clicklove: /libs/others/clicklove.js
-    sakura: /libs/others/sakura.js
+    sakura: /libs/others/sakura-small.js
     star: /libs/others/star.js
     snow: /libs/others/snow.js
     tcaptcha: /libs/others/TencentCaptcha.js
