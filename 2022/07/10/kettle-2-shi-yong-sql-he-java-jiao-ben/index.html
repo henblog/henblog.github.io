@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, MYBlog">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="kettle使用(2)-使用sql脚本和Java脚本, MYBlog">
+    <meta name="description" content="本文提供了在kettle中使用sql脚本和Java脚本、定时和连接池">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +19,7 @@
 
     
 
-    <title>Hello World | MYBlog</title>
+    <title>kettle使用(2)-使用sql脚本和Java脚本 | MYBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -348,12 +348,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">kettle使用(2)-使用sql脚本和Java脚本</h1>
                 </div>
             </div>
         </div>
@@ -467,12 +467,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/kettle/">
+                                <span class="chip bg-color">kettle</span>
+                            </a>
+                        
+                            <a href="/tags/ETL/">
+                                <span class="chip bg-color">ETL</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/kettle/" class="post-category">
+                                kettle
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -481,7 +498,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-08
+                    2022-07-10
                 </div>
                 
 
@@ -490,7 +507,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    357
                 </div>
                 
 
@@ -510,19 +527,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="kettle使用-2-使用SQL和JAVA脚本"><a href="#kettle使用-2-使用SQL和JAVA脚本" class="headerlink" title="kettle使用(2)-使用SQL和JAVA脚本"></a>kettle使用(2)-使用SQL和JAVA脚本</h1><h2 id="kettle中执行SQL脚本"><a href="#kettle中执行SQL脚本" class="headerlink" title="kettle中执行SQL脚本"></a>kettle中执行SQL脚本</h2><ul>
+<li>在转换中需要勾选 <em><strong>执行每一行* *变量替换</strong></em>；</li>
+<li>SQL中如果字段是字符类型的需要加引号**’?’**;</li>
+<li>SQL中的变量用**?<strong>&#x2F;</strong>${var}**(测试有问题)代替;</li>
+<li><strong>?<strong>为变量时：在</strong>作为参数的字段</strong>中顺序填入变量(需要一一对应)，定义参数需要将文件作为输入，里面的字段值就是参数；</li>
+<li>${var}为变量时：在<strong>转换属性</strong>的<strong>命名参数</strong>中设置变量；</li>
+</ul>
+<h2 id="kettle中执行Java脚本"><a href="#kettle中执行Java脚本" class="headerlink" title="kettle中执行Java脚本"></a>kettle中执行Java脚本</h2><p>添加变量：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Type</span> <span class="token keyword">var</span> <span class="token operator">=</span> <span class="token string">"randtext"</span><span class="token punctuation">;</span>
+<span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">Fields<span class="token punctuation">.</span>Out</span><span class="token punctuation">,</span><span class="token string">"var"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span><span class="token keyword">var</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//并在底部'字段'中声明变量var对应类型Type</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>获取输入的字段：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Type</span> <span class="token keyword">var</span> <span class="token operator">=</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">Fields<span class="token punctuation">.</span>In</span><span class="token punctuation">,</span> <span class="token string">"a_fieldname"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//表中字段名为a_fieldname的字段</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>输出字段：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">get</span><span class="token punctuation">(</span><span class="token class-name">Fields<span class="token punctuation">.</span>Out</span><span class="token punctuation">,</span> <span class="token string">"output_fieldname"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> <span class="token keyword">var</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="kettle中设置定时"><a href="#kettle中设置定时" class="headerlink" title="kettle中设置定时"></a>kettle中设置定时</h2><p>在作业的<strong>start</strong>组件设置</p>
+<h2 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h2><p>会在目标数据库生成对应表文件，右上角connect连接就可以了。</p>
+<p>报错：</p>
+<pre class="line-numbers language-none"><code class="language-none">You don&#39;t seem to be getting a connection to the server. Please check the path you&#39;re using and make sure the server is up and running. <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>解决方法：1.是否缺失jar包；2.相关服务是否开启；3.如果没有对应的R_的表，查看对应用户在资源库是否又建表权限，正确赋权后，删掉原来的数据库连接，重新配置repository即可；4.新建数据库重新配置</p>
 
                 
             </div>
@@ -539,7 +567,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">henblog</a>
+                    <a href="/about" rel="external nofollow noreferrer">hen</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -549,7 +577,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://henblog.github.io/2022/07/08/hello-world/">http://henblog.github.io/2022/07/08/hello-world/</a>
+                    <a href="http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/">http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -562,7 +590,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">henblog</a>
+                    <a href="/about" target="_blank">hen</a>
                     !
                 </span>
             </div>
@@ -586,7 +614,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/kettle/">
+                                    <span class="chip bg-color">kettle</span>
+                                </a>
+                            
+                                <a href="/tags/ETL/">
+                                    <span class="chip bg-color">ETL</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -762,19 +798,19 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/">
+                <a href="/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="kettle使用(2)-使用sql脚本和Java脚本">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="kettle使用(1)-更换界面logo和文字">
                         
-                        <span class="card-title">kettle使用(2)-使用sql脚本和Java脚本</span>
+                        <span class="card-title">kettle使用(1)-更换界面logo和文字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文提供了在kettle中使用sql脚本和Java脚本、定时和连接池
+                            本文提供了kettle修改图片和文字，包括但不限于界面logo/标题
                         
                     </div>
                     <div class="publish-info">
@@ -815,19 +851,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/08/oracle-expdp-impdp-zong-jie/">
+                <a href="/2022/07/08/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Oracle expdp/impdp总结">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">Oracle expdp/impdp总结</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文提供了expdp/impdp的快速上手和参数，还有一些小技巧和经验
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -836,27 +872,11 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Oracle/" class="post-category">
-                                    Oracle
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            henblog
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/oracle/">
-                        <span class="chip bg-color">oracle</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/">
-                        <span class="chip bg-color">数据迁移</span>
-                    </a>
-                    
                 </div>
                 
             </div>

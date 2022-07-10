@@ -6,7 +6,7 @@
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-10T05:40:54.909Z</updated>
+  <updated>2022-07-10T05:52:51.575Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/"/>
     <id>http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/</id>
     <published>2022-07-10T01:25:00.000Z</published>
-    <updated>2022-07-10T05:40:54.909Z</updated>
+    <updated>2022-07-10T05:52:51.575Z</updated>
     
     
       
@@ -29,6 +29,33 @@
         
         
     <summary type="html">&lt;h1 id=&quot;kettle使用-1-更换界面logo和文字&quot;&gt;&lt;a href=&quot;#kettle使用-1-更换界面logo和文字&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="kettle" scheme="http://henblog.github.io/categories/kettle/"/>
+    
+    
+    <category term="kettle" scheme="http://henblog.github.io/tags/kettle/"/>
+    
+    <category term="ETL" scheme="http://henblog.github.io/tags/ETL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kettle使用(2)-使用sql脚本和Java脚本</title>
+    <link href="http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/"/>
+    <id>http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/</id>
+    <published>2022-07-10T01:25:00.000Z</published>
+    <updated>2022-07-10T06:07:32.612Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;kettle使用-2-使用SQL和JAVA脚本&quot;&gt;&lt;a href=&quot;#kettle使用-2-使用SQL和JAVA脚本&quot; class=&quot;headerlink&quot;</summary>
         
       
     
