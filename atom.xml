@@ -6,7 +6,7 @@
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-08T01:33:10.318Z</updated>
+  <updated>2022-07-10T05:40:54.909Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kettle使用(1)-更换界面logo和文字</title>
+    <link href="http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/"/>
+    <id>http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/</id>
+    <published>2022-07-10T01:25:00.000Z</published>
+    <updated>2022-07-10T05:40:54.909Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;kettle使用-1-更换界面logo和文字&quot;&gt;&lt;a href=&quot;#kettle使用-1-更换界面logo和文字&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="kettle" scheme="http://henblog.github.io/categories/kettle/"/>
+    
+    
+    <category term="kettle" scheme="http://henblog.github.io/tags/kettle/"/>
+    
+    <category term="ETL" scheme="http://henblog.github.io/tags/ETL/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -42,16 +69,612 @@
     <link href="http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/"/>
     <id>http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/</id>
     <published>2022-07-08T01:25:00.000Z</published>
-    <updated>2022-07-08T07:32:17.005Z</updated>
+    <updated>2022-07-10T02:43:18.002Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Oracle-expdp-x2F-impdp总结&quot;&gt;&lt;a href=&quot;#Oracle-expdp-x2F-impdp总结&quot; class=&quot;headerlink&quot; title=&quot;Oracle expdp&amp;#x2F;impdp总结&quot;&gt;&lt;/a&gt;Oracle</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;Oracle-expdp-x2F-impdp总结&quot;&gt;&lt;a href=&quot;#Oracle-expdp-x2F-impdp总结&quot; class=&quot;headerlink&quot; title=&quot;Oracle expdp&amp;#x2F;impdp总结&quot;&gt;&lt;/a&gt;Oracle expdp&amp;#x2F;impdp总结&lt;/h1&gt;&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;数据泵（expdp，impdp）是Oracle 10g时引入的新技术，兼容了之前的数据导出导入工具（exp，imp）大部分功能，并进一步完善，提供了很多新功能以满足复杂的业务需求。区别于传统的exp，imp工具，数据泵相关命令需在数据库&lt;strong&gt;服务端&lt;/strong&gt;执行。&lt;/p&gt;
+&lt;p&gt;数据泵属于逻辑迁移，可跨操作系统版本，跨数据库版本。高版本兼容低版本，高版本向低版本导数据，导出时需添加低版本的版本号。&lt;/p&gt;
+&lt;h2 id=&quot;快速开始&quot;&gt;&lt;a href=&quot;#快速开始&quot; class=&quot;headerlink&quot; title=&quot;快速开始&quot;&gt;&lt;/a&gt;快速开始&lt;/h2&gt;&lt;p&gt;本篇适用于常用的导出导入命令，如果你只想将本库的数据导出到文件然后将文件导入到库，本篇可以作为参考。&lt;/p&gt;
+&lt;p&gt;本例将密码为&lt;strong&gt;test&lt;/strong&gt;的用户&lt;strong&gt;C##TEST&lt;/strong&gt;中的&lt;strong&gt;testcar&lt;/strong&gt;表按照&lt;strong&gt;条件&lt;/strong&gt;导出到指定目录，并导入后&lt;strong&gt;更名&lt;/strong&gt;为&lt;strong&gt;newtestcar&lt;/strong&gt;。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在操作系统创建文件目录用来保存导出的dump文件(Windows系统直接图形化建立路径即可)；&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;mkdir &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;p d&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;\test\dump&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;将目录指定为数据库的目录路径对象；&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;directory&lt;/span&gt; dptest02 &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;d:\test\dump&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;为用户赋予读写目录对象的权限；&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;grant&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;directory&lt;/span&gt; dptest02 &lt;span class=&quot;token keyword&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;C&lt;/span&gt;##TEST&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;导出；&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-basic&quot; data-language=&quot;basic&quot;&gt;&lt;code class=&quot;language-basic&quot;&gt;expdp C##TEST&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;test@orcl directory&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;dptest02 tables&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;testcar query&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;\&quot;where car_buy_time between to_date&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&#39;&lt;span class=&quot;token number&quot;&gt;2018&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;00&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;00&lt;/span&gt;&#39;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&#39;yyyy&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mm&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dd HH24&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;mi&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ss&#39;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;and&lt;/span&gt; to_date&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&#39;&lt;span class=&quot;token number&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;59&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;59&lt;/span&gt;&#39;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&#39;yyyy&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mm&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dd HH24&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;mi&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ss&#39;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;\&quot; dumpfile&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;testcar%U.dmp parallel&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt; job_name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;jobtest01&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;导入；&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-basic&quot; data-language=&quot;basic&quot;&gt;&lt;code class=&quot;language-basic&quot;&gt;impdp C##TEST&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;test directory&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;dp_test01 dumpfile&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;testcar%U.dmp remap_table&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;C##TEST.testcar&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;newtestcar&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总文件113G ,条件导出expdp按照条件导出49G用时25分，impdp导入用时26分，并行10个进程，共231938000行；&lt;/p&gt;
+&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;h3 id=&quot;1、目标新库上的操作&quot;&gt;&lt;a href=&quot;#1、目标新库上的操作&quot; class=&quot;headerlink&quot; title=&quot;1、目标新库上的操作&quot;&gt;&lt;/a&gt;1、目标新库上的操作&lt;/h3&gt;&lt;p&gt;（1）创建临时表空间&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;create&lt;/span&gt; temporary tablespace 用户临时表空间名称 
+tempfile &lt;span class=&quot;token string&quot;&gt;&#39;/u01/tablespaces/user_temp.dbf&#39;&lt;/span&gt; 
+&lt;span class=&quot;token keyword&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;50&lt;/span&gt;m 
+autoextend &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; 
+next &lt;span class=&quot;token number&quot;&gt;50&lt;/span&gt;m maxsize &lt;span class=&quot;token number&quot;&gt;20480&lt;/span&gt;m 
+extent management &lt;span class=&quot;token keyword&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;备注：根据实际情况调整表空间大小等参数以及规划临时表空间、回滚表空间等相关规划。&lt;/p&gt;
+&lt;p&gt;（2）创建数据表空间&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;create&lt;/span&gt; tablespace 用户表空间名称 
+datafile &lt;span class=&quot;token string&quot;&gt;&#39;/u01/tablespaces/user_data.dbf&#39;&lt;/span&gt; 
+&lt;span class=&quot;token keyword&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;50&lt;/span&gt;m 
+autoextend &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; 
+next &lt;span class=&quot;token number&quot;&gt;50&lt;/span&gt;m maxsize &lt;span class=&quot;token number&quot;&gt;20480&lt;/span&gt;m 
+extent management &lt;span class=&quot;token keyword&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;（3）建立用户，并指定默认表空间&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;create user 用户名称 identified by 密码 
+default tablespace 用户表空间名称 
+temporary tablespace 用户临时表空间名称;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;（4）给用户授予权限&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;grant connect,resource to 用户名1;
+grant create database link to 用户名;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：赋权给多个用户的情况下，各个用户名称间用,分隔即可。&lt;/p&gt;
+&lt;p&gt;（5）登录需要创建dblink的用户，创建dblink&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; DATABASE LINK DBLink名称 
+&lt;span class=&quot;token keyword&quot;&gt;CONNECT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; 用户 &lt;span class=&quot;token keyword&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; 密码 
+&lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;(DESCRIPTION =(ADDRESS_LIST =(ADDRESS =(PROTOCOL = TCP)(HOST = XXX.XXX.XXX.XXX)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = 实例名)))&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：创建DBLINK默认是用户级别的，对当前用户有效。只有当需要对所有用户有效时，再建立公有的DBlink对象（pulic参数）。&lt;/p&gt;
+&lt;h3 id=&quot;2、创建数据备份目录（源库和目标库）&quot;&gt;&lt;a href=&quot;#2、创建数据备份目录（源库和目标库）&quot; class=&quot;headerlink&quot; title=&quot;2、创建数据备份目录（源库和目标库）&quot;&gt;&lt;/a&gt;2、创建数据备份目录（源库和目标库）&lt;/h3&gt;&lt;p&gt;备份目录需要使用操作系统用户创建一个真实的目录，然后登录oracle dba用户，创建逻辑目录，指向该路径并使用户有对其读写权限。这样oracle才能识别这个备份目录。&lt;/p&gt;
+&lt;p&gt;（1）在操作系统上建立真实的目录&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;$ mkdir -p d:\test\dump&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;（2）登录oracle管理员用户&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-qlsql&quot; data-language=&quot;qlsql&quot;&gt;&lt;code class=&quot;language-qlsql&quot;&gt;SQL&amp;gt; conn &amp;#x2F;as sysdba&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;（3）创建逻辑目录&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-sql&quot; data-language=&quot;sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SQL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;create&lt;/span&gt; directory dp_name &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;d:\test\dump&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查看目录是否已经创建成功：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-sql&quot; data-language=&quot;sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SQL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; dba_directories&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5、用sys管理员给指定用户赋予在该目录的操作权限&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SQL&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;grant&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;directory&lt;/span&gt; dp_name &lt;span class=&quot;token keyword&quot;&gt;to&lt;/span&gt; 用户&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&quot;常用语句&quot;&gt;&lt;a href=&quot;#常用语句&quot; class=&quot;headerlink&quot; title=&quot;常用语句&quot;&gt;&lt;/a&gt;常用语句&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;expdp导出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;1)导出表
+expdp  tables&amp;#x3D;dbmon.lihaibo_exp dumpfile&amp;#x3D;sms.dmp DIRECTORY&amp;#x3D;dump_dir;
+2)并发导出parallel，指定job名
+我们需要特别注意一点，parallel 一定要与 dumpfile&amp;#x3D;...%U.dmp结合 使用，或者有多个表需要同时导出。单表，或者其他诸如network_link方式，指定parallel,也无法开启并发进程
+expdp scott&amp;#x2F;tiger@orcl directory&amp;#x3D;dpdata1 dumpfile&amp;#x3D;scott3%U.dmp parallel&amp;#x3D;4 job_name&amp;#x3D;scott3
+3)全表
+expdp scott&amp;#x2F;tiger@orcl TABLES&amp;#x3D;emp,dept dumpfile&amp;#x3D;expdp.dmp DIRECTORY&amp;#x3D;dpdata1;
+4)导出表，并指定表中的内容
+expdp scott&amp;#x2F;tiger@orcl directory&amp;#x3D;dpdata1 dumpfile&amp;#x3D;expdp.dmp Tables&amp;#x3D;emp query&amp;#x3D;&amp;quot;WHERE deptno&amp;#x3D;20&amp;quot;;
+5)导出表空间
+expdp system&amp;#x2F;manager DIRECTORY&amp;#x3D;dpdata1 DUMPFILE&amp;#x3D;tablespace.dmp TABLESPACES&amp;#x3D;temp,example;
+6)导出全库
+expdp system&amp;#x2F;manager DIRECTORY&amp;#x3D;dpdata1 DUMPFILE&amp;#x3D;full.dmp FULL&amp;#x3D;y;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;impdp导入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;1) 全用户导入
+impdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dpdata1 DUMPFILE&amp;#x3D;expdp.dmp SCHEMAS&amp;#x3D;scott;
+2) 用户对象迁移
+impdp system&amp;#x2F;manager DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;expdp.dmp TABLES&amp;#x3D;scott.dept REMAP_SCHEMA&amp;#x3D;scott:system; （SCOTT为原用户，system为目标用户）
+3) 导入指定表空间
+impdp system&amp;#x2F;manager DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;tablespace.dmp TABLESPACES&amp;#x3D;example;
+4) 全库导入
+impdb system&amp;#x2F;manager DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;full.dmp FULL&amp;#x3D;y;
+5) 表已存在的处理
+impdp system&amp;#x2F;manager DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;expdp.dmp SCHEMAS&amp;#x3D;system TABLE_EXISTS_ACTION&amp;#x3D;append;
+6) 表空间迁移
+impdp system&amp;#x2F;manager directory&amp;#x3D;dump_dir dumpfile&amp;#x3D;remap_tablespace.dmp logfile&amp;#x3D;remap_tablespace.log remap_tablespace&amp;#x3D;A:B (A为原表空间名，B为指定的目标表空间名)&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;expdp-x2F-impdp参数说明&quot;&gt;&lt;a href=&quot;#expdp-x2F-impdp参数说明&quot; class=&quot;headerlink&quot; title=&quot;expdp&amp;#x2F;impdp参数说明&quot;&gt;&lt;/a&gt;expdp&amp;#x2F;impdp参数说明&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;帮助：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;impdp -help
+expdp help&amp;#x3D;y&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ATTACH&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    当我们使用ctrl+C 退出交互式命令时，可使用attach参数重新进入到交互模式
+语法
+    ATTACH&amp;#x3D;[schema_name.]job_name
+    Schema_name用户名,job_name任务名
+示例
+    Expdp scott&amp;#x2F;tiger ATTACH&amp;#x3D;scott.export_job&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;CONTENT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    限制了导出的内容，包括三个级别：全部／数据／元数据（结构）
+语法
+   CONTENT&amp;#x3D;&amp;#123;ALL | DATA_ONLY | METADATA_ONLY&amp;#125;
+   ALL           -- 导出所有数据，包括元数据及数据
+   DATA_ONLY     -- 只导出数据
+   METADATA_ONLY -- 只包含元数据，就是创建语句
+示例
+   Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump DUMPFILE&amp;#x3D;a.dump CONTENT&amp;#x3D;METADATA_ONLY&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DIRECTORY&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+此路径可以理解为实际绝对路径在oracle数据库里的别名，是导出文件的存储位置
+    路径的创建： create directory &amp;amp;DIRECTORY_NAME AS &amp;#39;&amp;amp;PATH&amp;#39;;
+    查看已存在路径： select  * from dba_directories;
+语法
+    directory&amp;#x3D;[directory_name]
+示例
+    Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;lhb.dump&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DUMPFILE&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    此参数用户命名导出文件，默认是 expdat.dmp. 文件的存储位置如果在文件名前没有指定directory,则会默认存储到directory参数指定的路径下。
+语法
+    DUMPFILE&amp;#x3D;[dump_dir:]file_name
+示例
+    Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;dump_dir1:a.dmp&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;ESTIMATE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;在使用Expdp进行导出时，Expdp需要计算导出数据大小容量，Oracle可以通过两种方式进行容量估算，一种是通过数据块(blocks)数量、一种是通过统计信息中记录的内容(statistics)估算.
+
+语法结构：
+    EXTIMATE&amp;#x3D;&amp;#123;BLOCKS | STATISTICS&amp;#125;
+示例：
+    Expdp scott&amp;#x2F;tiger TABLES&amp;#x3D;emp ESTIMATE&amp;#x3D;STATISTICS DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dump
+    Expdp scott&amp;#x2F;tiger TABLES&amp;#x3D;emp ESTIMATE&amp;#x3D;BLOCKS DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dump&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;EXTIMATE_ONLY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    此参数用于统计导出的数据量大小及统计过程耗时长短。
+语法
+    EXTIMATE_ONLY&amp;#x3D;&amp;#123;Y | N&amp;#125;
+示例
+    Expdp scott&amp;#x2F;tiger ESTIMATE_ONLY&amp;#x3D;y NOLOGFILE&amp;#x3D;y directory&amp;#x3D;dump_dir schemas&amp;#x3D;halberd&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;EXCLUDE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    此参数用于排除不需要导出的内容，如我们进行全库导出，但是不需要导出用户scott，此时需要在exlude后先指定排除类型为schema,再指定具体的schema。具体使用方法见include参数. EXCLUDE与include的使用方法是一样的
+语法
+    EXCLUDE&amp;#x3D;object_type[:name_clause] [,object_type[:name_clause] ]
+    name_clause
+        &amp;quot;&amp;#x3D;&amp;#39;object_name&amp;#39;&amp;quot;
+        &amp;quot;in (&amp;#39;object_name&amp;#39;[,&amp;#39;object_name&amp;#39;,....])&amp;quot;
+        &amp;quot;in (select_clause) &amp;quot;
+    Object_type对象类型，如：table,view,procedure,schema等
+    name_clause指定名称的语句,如果不具体指定是哪个对象，则此类所有对象都不导出, select 语句中表名不要加用户名。用户名，通过schemas 指定。
+
+示例
+    expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dup EXCLUDE&amp;#x3D;VIEW
+    expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dup EXCLUDE&amp;#x3D;TABLE:\&amp;quot; IN\(\&amp;#39;TEMP\&amp;#39;,\&amp;#39;GRADE\&amp;#39;\)\&amp;quot;
+    EXCLUDE&amp;#x3D;TABLE:&amp;quot;&amp;#x3D;&amp;#39;APPLICATION_AUDIT&amp;#39;&amp;quot;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;FILESIZE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    用于指定单个导出的数据文件的最大值，与％U一起使用。比如，我们需要导出100G的数据，文件全部存储到一个文件内，在文件传输时，会耗费大量的时间，此时我们就可以使用这个参数，限制每个文件的大小，在传输导出文件时，就可以多个文件同时传送，大大的节省了文件传输时间。提高了工作的效率。
+语法
+  FILESIZE&amp;#x3D;integer[B | K | M | G]
+示例
+   Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd%U.dup FILESIZE&amp;#x3D;20g&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;FLASHBACK_SCN／FLASHBACK_TIME&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    基于undo 及scn号(时间点)进行的数据导出。使用此参数设置会进行flashback query的功能，查询到对应指定的SCN时的数据，然后进行导出。只要UNDO不被覆盖，无论数据库是否重启，都可以进行导出. flashback_time参数与flashback_scn的原理是一样的。在导出的数据里保持数据的一致性是很有必要的。这个。。我想，没谁傻忽忽的把这两个参数一起使用吧？所以我就不提醒你两个参数不可以同时使用了。
+语法
+   FLASHBACK_SCN&amp;#x3D;scn_value
+   FLASHBACK_TIME 有多种设定值的格式：
+   flashback_time&amp;#x3D;to_timestamp (localtimestamp)
+   flashback_time&amp;#x3D;to_timestamp_tz (systimestamp)
+   flashback_time&amp;#x3D;&amp;quot;TO_TIMESTAMP (&amp;quot;&amp;quot;25-08-2003 14:35:00&amp;quot;&amp;quot;， &amp;quot;&amp;quot;DD-MM-YYYY HH24:MI:SS&amp;quot;&amp;quot;)&amp;quot;  使用此格式可能会遇到ORA-39150错误。
+示例
+   Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dmp FLASHBACK_SCN&amp;#x3D; 12345567789
+   Expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dmp FLASHBACK_TIME&amp;#x3D; to_timestamp (localtimestamp)&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;FULL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+   指定导出内容为全库导出。这里需要特别注意的是,expdp 不能导出sys用户对象。即使是全库导出也不包含sys用户。
+语法
+   FULL&amp;#x3D;&amp;#123;Y | N&amp;#125;
+示例
+   expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir full&amp;#x3D;y&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;span id = &quot;include&quot;&gt;INCLUDE&lt;/span&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    限制范围，指定自己想要的内容，比如要导出某个用户的某张表。
+语法
+    INCLUDE &amp;#x3D; object_type[:name_clause],object_type[:name_clause]
+示例
+    impdp dbmon&amp;#x2F;dbmon_123 directory&amp;#x3D;dump_dir network_link&amp;#x3D;zjzwb2 SCHEMAS&amp;#x3D;AICBS remap_schema&amp;#x3D;aicbs:aicbsb include&amp;#x3D;table:\&amp;quot;IN\(SELECT TABLE_NAME FROM dbmon.TABLES_TOBE_MASKED\)\&amp;quot;  LOGFILE&amp;#x3D;zjzwb.log transform&amp;#x3D;segment_attributes:n
+    PARFILE中设置:
+        INCLUDE&amp;#x3D;table:&amp;quot;in(select table_name from dba_tables where owner&amp;#x3D;&amp;#39;AA&amp;#39;)&amp;quot;
+        INCLUDE&amp;#x3D;TABLE:&amp;quot;IN(&amp;#39;TEST1&amp;#39;,&amp;#39;TEST2&amp;#39;)&amp;quot;
+    SHELL环境设置:
+        INCLUDE&amp;#x3D;TABLE:\&amp;quot;IN\(SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER&amp;#x3D;\&amp;#39;AA\&amp;#39;\)\&amp;quot;
+        INCLUDE&amp;#x3D;TABLE:\&amp;quot;IN\(\&amp;#39;TEST1\&amp;#39;,\&amp;#39;TEST2\&amp;#39;\)\&amp;quot;
+说明
+    当导入命令在目标端发起时，select 子句所涉及的表要在源端，并且dblink 所使用的用户有访问的权限。&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;JOB_NAME&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    指定任务名，如果不指定的话，系统会默认自动命名：SYS_EXPORT_mode_nn
+语法
+    JOB_NAME&amp;#x3D;&amp;amp;JOB_NAME
+其他
+    查看有哪些expdp&amp;#x2F;impdp job，可以通过dba_datapump_jobs查看，其实你通过v$session.action也可以查看到
+    大多与attach参数一起使用，重新进行expdp交互命令时使用。&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;LOGFILE&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用： 指定导出日志名称。默认是：expdp.log
+语法
+    LOGFILE&amp;#x3D;[DIRECTORY:]file_name   , 如果参数值里没有指定路径，会默认使用directory参数值所指向的路径。
+    directory ： 存储路径,
+    file_name :日志文件名
+示例
+    expdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dmp logfile&amp;#x3D;halberd.log
+    impdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dmp logfile&amp;#x3D;halberd.log&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NETWORK_LINK&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    此参数只有在导入（impdp）时使用，可通过本地数据库里的db_link连接到其他数据库A，将数据库A的数据直接导入到本地数据库。中间可节省导出数据文件，传送数据文件的过程。很方便。但是要特别注意，不同版本之间可能会存在问题，比如源库为10g,目标库为11g。使用network_link参数会报错。至于 12C 与低版本之间是否有问题尚未尝试。
+语法
+    network_link&amp;#x3D;[db_link]
+示例
+    impdp scott&amp;#x2F;tiger DIRECTORY&amp;#x3D;dump_dir DUMPFILE&amp;#x3D;halberd.dmp NETWORK_LINK&amp;#x3D;to_tjj SCHEMAS&amp;#x3D;halberd logfile&amp;#x3D;halberd.log&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;NOLOGFILE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    不写导入导出日志，这个笔者是灰常灰常滴不建议设置为“Y”滴。
+语法
+    nologfile&amp;#x3D;[y|n]&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;PARALLEL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    指定导出／导入时使用多少个并发，默认是1,如果是单个表则在dumpfile中使用...%U.dmp
+语法
+    parallel&amp;#x3D;[digit]
+示例
+    expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir schemas&amp;#x3D;halberd dumpfile&amp;#x3D;halberd%U.dmp parallel&amp;#x3D;8 logfile&amp;#x3D;halberd.log&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;PARFILE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    参数文件，这个参数文件里，存储着一些参数的设置。比如上面说过的，parallel,network_link,等。导出时，可以使用此参数，expdp&amp;#x2F;impdp会自动读取文件中的参数设置，进行操作。
+语法
+    PARFILE&amp;#x3D;[directory_path] file_name
+示例
+   expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; parfile&amp;#x3D;halberd.par
+   cat halberd.par
+   directory&amp;#x3D;dump_dir                          
+   logfile&amp;#x3D;test.log                            
+   schemas&amp;#x3D;test                                
+   query&amp;#x3D;&amp;quot;where create_date &amp;gt; last_day(add_months(sysdate,-1)) and create_date &amp;lt;&amp;#x3D; last_day(sysdate)&amp;quot; 
+   transform&amp;#x3D;segment_attributes:n                 
+   network_link&amp;#x3D;to_aibcrm
+   table_exists_action&amp;#x3D;append                    
+   impdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; parfile&amp;#x3D;test.par&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;QUERY&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;作用
+    此参数指定在导入导出时的限制条件，和&lt;span class=&quot;token keyword&quot;&gt;SQL&lt;/span&gt;语句中的 &lt;span class=&quot;token string&quot;&gt;&quot;where&quot;&lt;/span&gt; 语句是一样儿一样儿滴
+语法
+    QUERY&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;schema&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;table_name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; query_clause&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;schema&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;table_name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; query_clause&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;……&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    CONTENT&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;METADATA_ONLY&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; EXTIMATE_ONLY＝Y&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;TRANSPORT_TABLESPACES&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+示例
+   Expdp scott&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;tiger &lt;span class=&quot;token keyword&quot;&gt;directory&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;dump dumpfiel&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dmp Tables&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;emp query&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;\&quot;&lt;span class=&quot;token keyword&quot;&gt;where&lt;/span&gt; car_buy_time &lt;span class=&quot;token keyword&quot;&gt;between&lt;/span&gt; to_date&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;2018-01-01 0:00:00&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;yyyy-mm-dd HH24:mi:ss&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;and&lt;/span&gt; to_date&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;2019-12-31 23:59:59&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;yyyy-mm-dd HH24:mi:ss&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;\&quot;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SCHEMAS&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    指定导出／导入哪个用户
+语法
+    schemas&amp;#x3D;schema_name[,schemaname,....]
+示例
+    expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir schemas&amp;#x3D;halberd&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;REMAP_SCHEMA&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt; 只在导入时使用
+作用
+    当把用户A的对象导入到用户（其实应该叫schema，将就看吧）B时，使用此参数，可实现要求
+格式
+    remap_schema&amp;#x3D;schema1: schema2
+示例
+    impdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir dumpfile&amp;#x3D;halberd.dmp logfile&amp;#x3D;halberd.log remap_schema&amp;#x3D;scott:halberd&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;TABLES&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    指定导出哪些表。
+格式
+    TABLES&amp;#x3D;[schema.]table_name[:partition_name][,[schema.]table_name[:partition_name]]
+说明
+    Schema 表的所有者；table_name表名；partition_name分区名.可以同时导出不同用户的不同的表
+示例
+    expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir tables&amp;#x3D;emp.emp_no,emp.dept&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;REMAP_TABLE&lt;/strong&gt;&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    只有在导入时使用，用于将导入的数据表更名。
+用法
+    REMAP_TABLE&amp;#x3D;S.a:b
+说明
+   S:表所在模式；a: 数据所在的原表空间; b： 目标表空间
+示例
+    impdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir tables&amp;#x3D;emp,dept  remap_table&amp;#x3D;C##TEST.emp:newemp&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;TABLESPACES&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    指定导出／导入哪个表空间。
+语法
+    tablespaces&amp;#x3D;tablespace_name[,tablespace_name,....]
+示例
+    expdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir tablespace&amp;#x3D;user&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;REMAP_TABLESPACE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    只有在导入时使用，用于进行数据的表空间迁移。 把前一个表空间中的对象导入到冒号后面的表空间
+用法
+    remap_tablespace&amp;#x3D;a:b
+说明
+   a: 数据所在的原表空间; b： 目标表空间
+示例
+   impdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir tables&amp;#x3D;emp.dept remap_tablespace&amp;#x3D;user:user1&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;TRANSPORT_FULL_CHECK&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;检查需要进行传输的表空间与其他不需要传输的表空间之间的信赖关系，默认为N。当设置为“Y”时，会对表空间之间的信赖关系进行检查，如A（索引表空间）信赖于B（表数据表空间），那么传输A而不传输B，则会出错，相反则不会报错。&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;TRANSPORT_TABLESPACES&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+    列出需要进行数据传输的表空间
+格式
+     TRANSPORT_TABLESPACES＝tablespace1[,tablespace2,.............]&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;TRANSFORM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用
+  此参数只在导入时使用，是一个用于设定存储相关的参数,有时候也是相当方便的。假如数据对应的表空间都存在的话，就根本用不到这个参数，但是，假如数据存储的表空间不存在，使用此参数导入到用户默认表空间就可以了。更灵活的，可以使用remap_tablespace参数来指定。
+格式
+    transform&amp;#x3D;transform_name:value[bject_type]
+    transform_name &amp;#x3D; [OID | PCTSPACE | SEGMENT_ATTRIBUTES | STORAGE]:[Y|N]
+    segment attributes:段属性包括物理属性、存储属性、表空间和日志,Y 值按照导出时的存储属性导入，N时按照用户、表的默认属性导入
+    storage:默认为Y，只取对象的存储属性作为导入作业的一部分
+    oid:  owner_id,如果指定oid&amp;#x3D;Y(默认)，则在导入过程中将分配一个新的oid给对象表，这个参数我们基本不用管。
+    pctspace:通过提供一个正数作为该转换的值，可以增加对象的分配尺寸，并且数据文件尺寸等于pctspace的值(按百分比)
+示例
+    transform&amp;#x3D;segment_attributes:n --表示将用户所有对象创建到用户默认表空间，而不再考虑原来的存储属性。&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;VERSION&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;此参数主要在跨版本之间进行导数据时使用，更具体一点，是在从高版本数据库导入到低版本数据库时使用,从低版本导入到高版本，这个参数是不可用的。默认值是:compatible。此参数基本在导出时使用，导入时基本不可用。
+VERSION&amp;#x3D;&amp;#123;COMPATIBLE | LATEST | version_string&amp;#125;
+COMPATIBLE       ： 以参数compatible的值为准，可以通过show parameter 查看compatible参数的值
+LATEST           ： 以数据库版本为准
+version_string   ： 指定版本。如： version&amp;#x3D;10.2.0.1&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;SAMPLE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;SAMPLE 抽样 给出导出表数据的百分比，参数值可以取.000001~100（不包括100）。不过导出过程不会和这里给出的百分比一样精确，是一个近似值。 
+格式： SAMPLE&amp;#x3D;[[schema_name.]table_name:]sample_percent 
+示例： SAMPLE&amp;#x3D;&amp;quot;HR&amp;quot;.&amp;quot;EMPLOYEES&amp;quot;:50&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span id=&quot;table_exists_action&quot;&gt;table_exists_action&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;此参数只在导入时使用。
+作用：导入时，假如目标库中已存在对应的表，对于这种情况，提供三种不同的处理方式：append,truncate,skip,replace
+格式： table_exists_action&amp;#x3D;［append | replace| skip |truncate］
+说明： append :   追加数据到表中
+       truncate:  将目标库中的同名表的数据truncate掉。
+       skip ：      遇到同名表，则跳过，不进行处理，注意：使用此参数值时，与该表相关的所有操作都会skip掉。
+       replace:    导入过程中，遇到同名表，则替换到目标库的那张表（先drop,再创建）。
+示例：  table_exists_action&amp;#x3D;replace&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;SQLFILE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;只在导入时使用！
+作用： 使用此参数时，主要是将DMP文件中的metadata语句取出到一个单独的SQLfile中，而数据并不导入到数据库中
+格式： sqlfile&amp;#x3D;&amp;amp;file_name.sql
+示例： impdp \&amp;#39;\&amp;#x2F; as sysdba\&amp;#39; directory&amp;#x3D;dump_dir dumpfile&amp;#x3D;halberd.dmp logfile&amp;#x3D;halberd.log sqlfile&amp;#x3D;halberd.sql&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;legacy mode &lt;/p&gt;
+&lt;p&gt;在11g中，才有这种模式。这种模式里兼容了以前版本中的部分参数，如：consistent,reuse_dumpfiles等（其实我现在也就知道这两个参数，哈哈，以后再遇到再补充）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;consistent&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;这个是保持数据一致性的一个参数。在11g中使用时，如果设置 consistent&amp;#x3D;true,则会默认转换成 flashback_time参数，时间设置为命令开始执行的那个时间点。
+格式： consistent&amp;#x3D;[true|false]&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;reuse_dumpfiles&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;作用：重用导出的dmp文件 。假如第一次我们导失败了，虽然导出失败，但是dmp文件 还 是会生成的。在修改导出命令，第二次执行时，就可以 加上这个参数。
+格式： reuse_dumpfile&amp;#x3D;[true|false]&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;partition_options&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;1 NONE 不对分区做特殊处理。在系统上的分区表一样创建。
+2 DEPARTITION 每个分区表和子分区表作为一个独立的表创建，名字使用表和分区（子分区）名字的组合。
+3 MERGE 将所有分区合并到一个表 
+注意：如果导出时使用了TRANSPORTABLE参数，这里就不能使用NONE和MERGE&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;交互式命令&quot;&gt;&lt;a href=&quot;#交互式命令&quot; class=&quot;headerlink&quot; title=&quot;交互式命令&quot;&gt;&lt;/a&gt;&lt;span id=&quot;jiaohu&quot;&gt;交互式命令&lt;/span&gt;&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;连接到对应的job: &lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-sql&quot; data-language=&quot;sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;impdp username&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;password attach&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;job_name
+expdp username&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;password attach&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;job_name
+&lt;span class=&quot;token comment&quot;&gt;--jobname可以在运行任务时指定或者使用sql：&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; DBA_DATAPUMP_JOBS&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查看运行状态： status&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;停止导入导出： kill_job(直接kill 掉进程，不自动退出交互模式)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;停止导入导出：stop_job（逐一停止job进程的运行，并退出交互模式）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改并发值： parallel&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;退出交互模式： exit &amp;#x2F; exit_client(退出到日志模式，对job无影响)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;小技巧&quot;&gt;&lt;a href=&quot;#小技巧&quot; class=&quot;headerlink&quot; title=&quot;小技巧&quot;&gt;&lt;/a&gt;小技巧&lt;/h2&gt;&lt;h3 id=&quot;不生成文件直接导入目标数据库&quot;&gt;&lt;a href=&quot;#不生成文件直接导入目标数据库&quot; class=&quot;headerlink&quot; title=&quot;不生成文件直接导入目标数据库&quot;&gt;&lt;/a&gt;不生成文件直接导入目标数据库&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;创建public dblink；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;PUBLIC&lt;/span&gt; DATABASE LINK &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;pub_link_test1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;CONNECT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;username&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;密码&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt;
+&lt;span class=&quot;token string&quot;&gt;&#39;(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = &amp;lt;localhost&gt;)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+    (SERVER = DEDICATED)
+      (SERVICE_NAME = ORCL)
+    )
+)&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;对DIRECTORY对应目录有&lt;code&gt; &lt;/code&gt; &lt;code&gt;READ&lt;/code&gt; &amp;#x2F; &lt;code&gt;WRITE&lt;/code&gt; &amp;#x2F; &lt;code&gt;UTL_FILE&lt;/code&gt; 权限；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DIRECTORY&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;dp_name&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;E:\dptest\test1&#39;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;READ&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;WRITE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DIRECTORY&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;dp_name&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;username&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;EXECUTE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt; SYS&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;UTL_FILE &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;username&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;导入到数据库；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;line-numbers language-plsql&quot; data-language=&quot;plsql&quot;&gt;&lt;code class=&quot;language-plsql&quot;&gt;impdp &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;username&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;password&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;@orcl&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;directory&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;dp_name&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; tables&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;C&lt;/span&gt;##TEST&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;testcar要导入的表&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; parallel&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt; network_link&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;pub_link_test1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; remap_table&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;C&lt;/span&gt;##TEST&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;testcar&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;testfullcar改名&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; LOGFILE&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;impdp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;log&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;个人测试分开导入导出共花费100min,直接导入数据库40min，速度直接提高2.5倍！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;注意：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;在B服务器数据库创建到A服务器数据库的public db link；&lt;/li&gt;
+&lt;li&gt;在system下创建Directory，并赋予其读写权限，同时赋予SYS.UTL_FILE的执行权限；&lt;/li&gt;
+&lt;li&gt;执行脚本参数位置。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;导入多张表&quot;&gt;&lt;a href=&quot;#导入多张表&quot; class=&quot;headerlink&quot; title=&quot;导入多张表&quot;&gt;&lt;/a&gt;导入多张表&lt;/h3&gt;&lt;p&gt;使用**&lt;a href=&quot;#include&quot;&gt;INCLUDE&lt;/a&gt;**参数&lt;/p&gt;
+&lt;h3 id=&quot;如果存在表将导入文件追加到文件尾-x2F-跳过-x2F-删除&quot;&gt;&lt;a href=&quot;#如果存在表将导入文件追加到文件尾-x2F-跳过-x2F-删除&quot; class=&quot;headerlink&quot; title=&quot;如果存在表将导入文件追加到文件尾&amp;#x2F;跳过&amp;#x2F;删除&quot;&gt;&lt;/a&gt;如果存在表将导入文件追加到文件尾&amp;#x2F;跳过&amp;#x2F;删除&lt;/h3&gt;&lt;p&gt;使用**&lt;a href=&quot;#table_exists_action&quot;&gt;table_exists_action&lt;/a&gt;**参数：［append | replace| skip |truncate］&lt;/p&gt;
+&lt;h3 id=&quot;查看进度&quot;&gt;&lt;a href=&quot;#查看进度&quot; class=&quot;headerlink&quot; title=&quot;查看进度&quot;&gt;&lt;/a&gt;查看进度&lt;/h3&gt;&lt;p&gt;在&lt;a href=&quot;#jiaohu&quot;&gt;交互式命令&lt;/a&gt;里面status可以查看导入百分比等详细信息，导出没有显示百分比；&lt;/p&gt;
+&lt;h3 id=&quot;错误处理&quot;&gt;&lt;a href=&quot;#错误处理&quot; class=&quot;headerlink&quot; title=&quot;错误处理&quot;&gt;&lt;/a&gt;错误处理&lt;/h3&gt;&lt;h4 id=&quot;1、ORA-39112&quot;&gt;&lt;a href=&quot;#1、ORA-39112&quot; class=&quot;headerlink&quot; title=&quot;1、ORA-39112&quot;&gt;&lt;/a&gt;1、ORA-39112&lt;/h4&gt;&lt;p&gt;导出正常，导入数据时，只成功导入部分记录等数据，另外的部分提数ora 39112错误，经查是因为导出的用户数据中，有部分记录的表用的索引在另一表空间中，该空间还未创建，所以导致该失败。&lt;/p&gt;
+&lt;p&gt;解决方法：在导入时，添加参数：RANSFORM&amp;#x3D;segment_attributes:n ，配合table_exists_action&amp;#x3D;replace参数，重新导入即可。&lt;/p&gt;
+&lt;p&gt;RANSFORM&amp;#x3D;segment_attributes:n 在导入时，会将数据导入默认的表空间中。&lt;/p&gt;
+&lt;p&gt; 补充，造成该问题的可能原因：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;1、在原来测试库中，目标schema和别的用户相互授权了，可是你导出的dmp中没有包含所有的用户，导入时对应用户没有创建。
+2、再就是，表空间问题，测试库中的用户下的某个表的索引没有在他的默认表空间里，这样你要在目标端（这里就是生产环境），创建好对应的表空间，
+就是说如果你在测试库把a用户的下的某个表的权限授给了b,那么你在把a用户用数据泵倒进生产库时，他会在生产库中检测有没有用户ｂ。也要做相同的操作。&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h4 id=&quot;2、ORA-39346&quot;&gt;&lt;a href=&quot;#2、ORA-39346&quot; class=&quot;headerlink&quot; title=&quot;2、ORA-39346&quot;&gt;&lt;/a&gt;2、ORA-39346&lt;/h4&gt;&lt;p&gt;导入过程中，遇到错误”  ORA-39346: data loss in character set conversion for object SCHEMA_EXPORT&amp;#x2F;PROCEDURE&amp;#x2F;PROCEDURE  “&lt;/p&gt;
+&lt;p&gt;oracle官方的描述如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; data loss in character set conversion for object string&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cause:&lt;/strong&gt; Oracle Data Pump import converted a metadata object from the export database character set into the target database character set prior to processing the object. Some characters could not be converted to the target database character set and so the default replacement character was used.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Action:&lt;/strong&gt; No specific user action is required. This type of data loss can occur if the target database character set is not a superset of the export databases character set.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; 翻译：不需要特定的用户操作。如果目标数据库字符集不是导出数据库字符集的超集，则可能发生此类数据丢失。&lt;/p&gt;
+&lt;h2 id=&quot;注意事项&quot;&gt;&lt;a href=&quot;#注意事项&quot; class=&quot;headerlink&quot; title=&quot;注意事项&quot;&gt;&lt;/a&gt;注意事项&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;expdp和impdp是服务端的工具程序，他们只能在Oracle服务端使用，不能在客户端使用。&lt;/li&gt;
+&lt;li&gt;impdp&amp;#x2F;expdp组合使用，不可以与exp&amp;#x2F;imp混用。&lt;/li&gt;
+&lt;li&gt;导数据之间的数据库字符集必须一致，否则可能出现乱码。&lt;/li&gt;
+&lt;li&gt;经过测试一次只能有一个job在运行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;脚本（转自）&quot;&gt;&lt;a href=&quot;#脚本（转自）&quot; class=&quot;headerlink&quot; title=&quot;脚本（转自）&quot;&gt;&lt;/a&gt;脚本（&lt;a href=&quot;https://www.cnblogs.com/chinas/p/8300955.html#_label5&quot;&gt;转自&lt;/a&gt;）&lt;/h2&gt;</summary>
     
     
     

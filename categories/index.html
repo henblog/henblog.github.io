@@ -37,6 +37,44 @@
 
 
 <body>
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+  <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+    <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+  </a>
+</div>
+
+<script>
+  function switchNightMode() {
+    $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+      setTimeout(function () {
+        $('body').hasClass('DarkMode') 
+        ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+        : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+          
+        setTimeout(function () {
+          $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+            $(this).remove()
+          })
+        }, 2e3)
+      })
+  }
+</script>
+<div class="stars-con">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>  
+</div>
+	<script>
+		/* 模式判断 */
+		if (localStorage.getItem('isDark') === '1') {
+			document.body.classList.add('DarkMode');
+			$('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+		} else {
+			document.body.classList.remove('DarkMode');
+			$('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+		}
+	</script>
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -234,7 +272,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/henblog" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +329,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/henblog" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -377,6 +415,15 @@
                 </a>
                 
                 
+                <a href="/categories/kettle/" title="kettle: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">kettle
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
             </div>
         </div>
     </div>
@@ -419,7 +466,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"Oracle","max":2}],
+            indicator: [{"name":"Oracle","max":2},{"name":"kettle","max":2}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -430,7 +477,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1],
+                    value : [1,1],
                     name : '文章分类数量'
                 }
             ]
@@ -552,6 +599,12 @@
 
     <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=994554503" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 994554503" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://space.bilibili.com/102520840" class="tooltipped" target="_blank" data-tooltip="关注我的Bilibili" data-position="top" data-delay="50">
+        <i class="fas fa-play-circle"></i>
     </a>
 
 
@@ -694,7 +747,7 @@ $(function () {
             // 只在桌面版网页启用特效
             var windowWidth = $(window).width();
             if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+                document.write('<script type="text/javascript" src="/libs/others/sakura-small.js"><\/script>');
             }
         </script>
     

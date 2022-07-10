@@ -37,6 +37,44 @@
 
 
 <body>
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+  <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+    <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+  </a>
+</div>
+
+<script>
+  function switchNightMode() {
+    $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+      setTimeout(function () {
+        $('body').hasClass('DarkMode') 
+        ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+        : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+          
+        setTimeout(function () {
+          $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+            $(this).remove()
+          })
+        }, 2e3)
+      })
+  }
+</script>
+<div class="stars-con">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>  
+</div>
+	<script>
+		/* 模式判断 */
+		if (localStorage.getItem('isDark') === '1') {
+			document.body.classList.add('DarkMode');
+			$('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+		} else {
+			document.body.classList.remove('DarkMode');
+			$('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+		}
+	</script>
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -234,7 +272,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/henblog" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +329,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/henblog" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -466,6 +504,11 @@
 
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.7k
+                </div>
                 
 
                 
@@ -1020,7 +1063,7 @@ expdp username<span class="token operator">/</span>password attach<span class="t
 <li><p>退出交互模式： exit &#x2F; exit_client(退出到日志模式，对job无影响)</p>
 </li>
 </ol>
-<h2 id="Small技巧"><a href="#Small技巧" class="headerlink" title="Small技巧"></a>Small技巧</h2><h3 id="不生成文件直接导入目标数据库"><a href="#不生成文件直接导入目标数据库" class="headerlink" title="不生成文件直接导入目标数据库"></a>不生成文件直接导入目标数据库</h3><ul>
+<h2 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h2><h3 id="不生成文件直接导入目标数据库"><a href="#不生成文件直接导入目标数据库" class="headerlink" title="不生成文件直接导入目标数据库"></a>不生成文件直接导入目标数据库</h3><ul>
 <li>创建public dblink；</li>
 </ul>
 <pre class="line-numbers language-plsql" data-language="plsql"><code class="language-plsql"><span class="token keyword">CREATE</span> <span class="token keyword">PUBLIC</span> DATABASE LINK <span class="token operator">&lt;</span>pub_link_test1<span class="token operator">></span>
@@ -1086,7 +1129,9 @@ expdp username<span class="token operator">/</span>password attach<span class="t
 <li>导数据之间的数据库字符集必须一致，否则可能出现乱码。</li>
 <li>经过测试一次只能有一个job在运行</li>
 </ul>
-<h2 id="脚本（转自）"><a href="#脚本（转自）" class="headerlink" title="脚本（转自）"></a>脚本（<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chinas/p/8300955.html#_label5">转自</a>）</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!&#x2F;bin&#x2F;bash
+<h2 id="脚本（转自）"><a href="#脚本（转自）" class="headerlink" title="脚本（转自）"></a>脚本（<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chinas/p/8300955.html#_label5">转自</a>）</h2><span id="more"></span>
+
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!&#x2F;bin&#x2F;bash
 #############################################################################
 #脚本功能：
 #脚本路径：
@@ -1914,6 +1959,12 @@ main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 
 
 
+    <a href="https://space.bilibili.com/102520840" class="tooltipped" target="_blank" data-tooltip="关注我的Bilibili" data-position="top" data-delay="50">
+        <i class="fas fa-play-circle"></i>
+    </a>
+
+
+
     <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fas fa-rss"></i>
     </a>
@@ -2052,7 +2103,7 @@ $(function () {
             // 只在桌面版网页启用特效
             var windowWidth = $(window).width();
             if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+                document.write('<script type="text/javascript" src="/libs/others/sakura-small.js"><\/script>');
             }
         </script>
     

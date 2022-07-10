@@ -37,6 +37,44 @@
 
 
 <body>
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+  <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+    <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+  </a>
+</div>
+
+<script>
+  function switchNightMode() {
+    $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+      setTimeout(function () {
+        $('body').hasClass('DarkMode') 
+        ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+        : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+          
+        setTimeout(function () {
+          $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+            $(this).remove()
+          })
+        }, 2e3)
+      })
+  }
+</script>
+<div class="stars-con">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>  
+</div>
+	<script>
+		/* 模式判断 */
+		if (localStorage.getItem('isDark') === '1') {
+			document.body.classList.add('DarkMode');
+			$('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+		} else {
+			document.body.classList.remove('DarkMode');
+			$('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+		}
+	</script>
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -234,7 +272,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/henblog" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +329,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/henblog" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -436,6 +474,12 @@
 
 
 
+    <a href="https://space.bilibili.com/102520840" class="tooltipped" target="_blank" data-tooltip="关注我的Bilibili" data-position="top" data-delay="50">
+        <i class="fas fa-play-circle"></i>
+    </a>
+
+
+
     <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fas fa-rss"></i>
     </a>
@@ -462,6 +506,29 @@
                             </div>
                             <div class="cover-btns">
                                 <a href="/2022/07/08/oracle-expdp-impdp-zong-jie/" class="waves-effect waves-light btn"
+                                   target="_blank">
+                                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            
+            <div class="carousel-item amber white-text carousel-post bg-cover"
+                 style="background-image: url('/medias/featureimages/20.jpg');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 offset-s1">
+                            <div class="title center-align">kettle使用(1)-更换界面logo和文字</div>
+                            <div class="description center-align">
+                                
+                                    本文提供了kettle修改图片和文字，包括但不限于界面logo/标题
+                                
+                            </div>
+                            <div class="cover-btns">
+                                <a href="/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/" class="waves-effect waves-light btn"
                                    target="_blank">
                                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                                 </a>
@@ -579,7 +646,7 @@
 
     
     
-    <div class="col s12" >
+    <div class="col s12 m6" >
         
             <div class="post-card" style="background-image: url('/medias/featureimages/8.jpg')">
             
@@ -594,8 +661,40 @@
                 <a href="/2022/07/08/oracle-expdp-impdp-zong-jie/">
                     <h3 class="post-title">Oracle expdp/impdp总结</h3>
                 </a>
-                <p class="post-description">本文提供了expdp/impdp的快速上手和参数，还有一些小技巧和经验</p>
+                <p class="post-description">
+                    
+                        本文提供了expdp/impdp的快速上手和参数，还有一些小技巧和经验
+                    
+                </p>
                 <a href="/2022/07/08/oracle-expdp-impdp-zong-jie/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)" target="_blank">
+                    <i class="icon far fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s12 m6" >
+        
+            <div class="post-card" style="background-image: url('/medias/featureimages/20.jpg')">
+            
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                        
+                            <a href="/categories/kettle/" class="category">kettle</a>
+                        
+                    
+                </div>
+                <a href="/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/">
+                    <h3 class="post-title">kettle使用(1)-更换界面logo和文字</h3>
+                </a>
+                <p class="post-description">
+                    
+                        本文提供了kettle修改图片和文字，包括但不限于界面logo/标题
+                    
+                </p>
+                <a href="/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)" target="_blank">
                     <i class="icon far fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -619,6 +718,59 @@
     <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
         <div class="row article-row">
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="kettle使用(1)-更换界面logo和文字">
+                            
+                            <span class="card-title">kettle使用(1)-更换界面logo和文字</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文提供了kettle修改图片和文字，包括但不限于界面logo/标题
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/kettle/" class="post-category">
+                                    kettle
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/kettle/">
+                            <span class="chip bg-color">kettle</span>
+                        </a>
+                        
+                        <a href="/tags/ETL/">
+                            <span class="chip bg-color">ETL</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
             
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
@@ -829,6 +981,12 @@
 
 
 
+    <a href="https://space.bilibili.com/102520840" class="tooltipped" target="_blank" data-tooltip="关注我的Bilibili" data-position="top" data-delay="50">
+        <i class="fas fa-play-circle"></i>
+    </a>
+
+
+
     <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fas fa-rss"></i>
     </a>
@@ -967,7 +1125,7 @@ $(function () {
             // 只在桌面版网页启用特效
             var windowWidth = $(window).width();
             if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+                document.write('<script type="text/javascript" src="/libs/others/sakura-small.js"><\/script>');
             }
         </script>
     
