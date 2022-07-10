@@ -625,7 +625,7 @@ impdp system/manager directory=dump_dir dumpfile=remap_tablespace.dmp logfile=re
 
 6. 退出交互模式： exit / exit_client(退出到日志模式，对job无影响)
 
-## Small技巧
+## 小技巧
 
 ### 不生成文件直接导入目标数据库
 
