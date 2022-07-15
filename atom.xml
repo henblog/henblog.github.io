@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>MYBlog</title>
+  <title>blog_er</title>
   
-  
+  <subtitle>我亦无他</subtitle>
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-10T05:52:51.575Z</updated>
+  <updated>2022-07-15T05:45:41.232Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大数据离线知识点</title>
+    <link href="http://henblog.github.io/2022/07/15/da-shu-ju-zhi-shi-dian/"/>
+    <id>http://henblog.github.io/2022/07/15/da-shu-ju-zhi-shi-dian/</id>
+    <published>2022-07-15T05:45:00.000Z</published>
+    <updated>2022-07-15T05:45:41.232Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;linux常用命令&quot;&gt;&lt;a href=&quot;#linux常用命令&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="big-data" scheme="http://henblog.github.io/categories/big-data/"/>
+    
+    
+    <category term="big-data" scheme="http://henblog.github.io/tags/big-data/"/>
+    
+  </entry>
+  
+  <entry>
     <title>kettle使用(1)-更换界面logo和文字</title>
     <link href="http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/"/>
     <id>http://henblog.github.io/2022/07/10/kettle-1-geng-huan-tu-biao-wen-zi/</id>
     <published>2022-07-10T01:25:00.000Z</published>
-    <updated>2022-07-10T05:52:51.575Z</updated>
+    <updated>2022-07-15T05:46:22.367Z</updated>
     
     
       
@@ -48,7 +74,7 @@
     <link href="http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/"/>
     <id>http://henblog.github.io/2022/07/10/kettle-2-shi-yong-sql-he-java-jiao-ben/</id>
     <published>2022-07-10T01:25:00.000Z</published>
-    <updated>2022-07-10T06:07:32.612Z</updated>
+    <updated>2022-07-15T05:46:34.952Z</updated>
     
     
       
@@ -96,7 +122,7 @@
     <link href="http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/"/>
     <id>http://henblog.github.io/2022/07/08/oracle-expdp-impdp-zong-jie/</id>
     <published>2022-07-08T01:25:00.000Z</published>
-    <updated>2022-07-10T02:43:18.002Z</updated>
+    <updated>2022-07-15T05:46:53.373Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;Oracle-expdp-x2F-impdp总结&quot;&gt;&lt;a href=&quot;#Oracle-expdp-x2F-impdp总结&quot; class=&quot;headerlink&quot; title=&quot;Oracle expdp&amp;#x2F;impdp总结&quot;&gt;&lt;/a&gt;Oracle expdp&amp;#x2F;impdp总结&lt;/h1&gt;&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h2&gt;&lt;p&gt;数据泵（expdp，impdp）是Oracle 10g时引入的新技术，兼容了之前的数据导出导入工具（exp，imp）大部分功能，并进一步完善，提供了很多新功能以满足复杂的业务需求。区别于传统的exp，imp工具，数据泵相关命令需在数据库&lt;strong&gt;服务端&lt;/strong&gt;执行。&lt;/p&gt;
