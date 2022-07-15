@@ -2,7 +2,7 @@
 title: kettle使用(2)-使用sql脚本和Java脚本
 date: 2022-07-10 09:25:00
 author: hen
-top: true
+top: false
 hide: false
 cover: true
 mathjax: false

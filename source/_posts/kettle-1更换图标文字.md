@@ -2,7 +2,7 @@
 title: kettle使用(1)-更换界面logo和文字
 date: 2022-07-10 09:25:00
 author: hen
-top: true
+top: false
 hide: false
 cover: true
 mathjax: false
