@@ -6,7 +6,7 @@
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-15T05:45:41.232Z</updated>
+  <updated>2022-07-15T05:46:22.367Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -15,32 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>大数据离线知识点</title>
-    <link href="http://henblog.github.io/2022/07/15/da-shu-ju-zhi-shi-dian/"/>
-    <id>http://henblog.github.io/2022/07/15/da-shu-ju-zhi-shi-dian/</id>
-    <published>2022-07-15T05:45:00.000Z</published>
-    <updated>2022-07-15T05:45:41.232Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h3 id=&quot;linux常用命令&quot;&gt;&lt;a href=&quot;#linux常用命令&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="big-data" scheme="http://henblog.github.io/categories/big-data/"/>
-    
-    
-    <category term="big-data" scheme="http://henblog.github.io/tags/big-data/"/>
-    
-  </entry>
   
   <entry>
     <title>kettle使用(1)-更换界面logo和文字</title>
