@@ -11,6 +11,7 @@ categories: Oracle
 tags:
   - oracle
   - 数据迁移
+  - 数据库
 ---
 
 # Oracle expdp/impdp总结
