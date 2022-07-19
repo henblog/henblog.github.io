@@ -1,8 +1,12 @@
 ---
+title: MySQL环境搭建
+date: 2022-07-17 09:25:00
+author: hen
 top: false
 hide: false
-cover: true
+cover: false
 mathjax: false
+summary: Windows下卸载、安装MySQL和一些常见问题
 categories: MySQL
 tags:
   - MySQL
@@ -10,8 +14,6 @@ tags:
 ---
 
 # 第02章_MySQL环境搭建
-
- 2022-04-07   2022-04-18   [技术博客](https://new-wangz.github.io/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/)   424   [0](https://new-wangz.github.io/2022/04/07/%E7%AC%AC02%E7%AB%A0-MySQL%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#valine-comments)
 
 ## 1. MySQL的卸载
 
@@ -77,7 +79,7 @@ tags:
 
 如何打开注册表编辑器：在系统的搜索框中输入`regedit`
 
-```
+```reg
 HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL服务 目录删除
 HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MySQL服务 目录删除
 HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Eventlog\Application\MySQL服务 目录删除
@@ -298,7 +300,7 @@ MySQL安装完毕之后，需要启动服务器进程，不然客户端无法连
 
 #### 方式 2 ：使用命令行工具
 
-```
+```bash
 # 启动　MySQL　服务命令
 net　start　MySQL服务名
 
@@ -329,13 +331,13 @@ net　stop　MySQL服务名
 
 - 格式：
 
-  ```
+  ```bash
   mysql -h 主机名 -P 端口号 -u 用户名 -p密码
   ```
 
 - 举例：
 
-  ```
+  ```bash
   mysql -h localhost -P 3306 -u root -pabc123  # 这里我设置的root用户的密码是abc123
   ```
 
@@ -344,13 +346,13 @@ net　stop　MySQL服务名
 - 注意：
   1．-p与密码之间不能有空格，其他参数名与参数值之间可以有空格也可以没有空格。如：
 
-  ```
+  ```bash
   mysql -hlocalhost -P3306 -uroot -pabc123
   ```
 
   ２．密码建议在下一行输入，保证安全
 
-  ```
+  ```bash
   mysql -h localhost -P 3306 -u root -p
   Enter password:****
   ```
@@ -359,7 +361,7 @@ net　stop　MySQL服务名
 
   简写成：
 
-  ```
+  ```bash
   mysql -u root -p
   Enter password:****
   ```
@@ -368,23 +370,23 @@ net　stop　MySQL服务名
 
   也可以在命令行通过以下方式获取MySQL Server服务版本的信息：
 
-  ```
+  ```bash
   c:\> mysql -V
   ```
 
-  ```
+  ```bash
   c:\> mysql --version
   ```
 
   或**登录**后，通过以下方式查看当前版本信息：
 
-  ```
+  ```mysql
   mysql> select version();
   ```
 
 #### 退出登录
 
-```
+```mysql
 exit
 或
 quit
@@ -400,7 +402,7 @@ quit
 
 #### 1 .查看所有的数据库
 
-```
+```mysql
 show databases;
 ```
 
@@ -415,7 +417,7 @@ show databases;
 
 #### 2 、创建自己的数据库
 
-```
+```mysql
 create database 数据库名;
 
 #创建atguigudb数据库，该名称不能与已经存在的数据库重名。
@@ -424,7 +426,7 @@ create database atguigudb;
 
 #### 3 、使用自己的数据库
 
-```
+```mysql
 use 数据库名;
 
 #使用atguigudb数据库
@@ -437,7 +439,7 @@ use atguigudb;
 
 #### 4 、查看某个库的所有表格
 
-```
+```mysql
 show tables;  #要求前面有use语句
 
 show tables from 数据库名;
@@ -445,7 +447,7 @@ show tables from 数据库名;
 
 #### 5 、创建新的表格
 
-```
+```mysql
 create table 表名称(
 字段名 数据类型,
 字段名 数据类型
@@ -454,7 +456,7 @@ create table 表名称(
 
 说明：如果是最后一个字段，后面就用加逗号，因为逗号的作用是分割每个字段。
 
-```
+```mysql
 #创建学生表
 create table student(
 id int,
@@ -464,7 +466,7 @@ name varchar( 20 )  #说名字最长不超过 20 个字符
 
 #### 6 、查看一个表的数据
 
-```
+```mysql
 select * from 数据库表名称;
 
 #查看学生表的数据
@@ -473,7 +475,7 @@ select * from student;
 
 #### 7 、添加一条记录
 
-```
+```mysql
 insert into 表名称 values(值列表);
 
 #添加两条记录到student表中
@@ -483,7 +485,7 @@ insert into student values( 2 ,'李四');
 
 报错：
 
-```
+```mysql
 mysql> insert into student values( 1 ,'张三');
 ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'name' at　row 1
 mysql> insert into student values( 2 ,'李四');
@@ -495,7 +497,7 @@ mysql> show create table student;
 
 #### 8 、查看表的创建信息
 
-```
+```mysql
 show create table 表名称\G
 
 #查看student表的详细创建信息
@@ -514,7 +516,7 @@ Create Table: CREATE TABLE `student` (
 
 #### 9 、查看数据库的创建信息
 
-```
+```mysql
 show create database 数据库名\G
 
 #查看atguigudb数据库的详细创建信息
@@ -525,7 +527,7 @@ show create database atguigudb\G
 
 #### 10 、删除表格
 
-```
+```mysql
 drop table 表名称;
 
 #删除学生表
@@ -534,7 +536,7 @@ drop table student;
 
 #### 11 、删除数据库
 
-```
+```mysql
 drop database 数据库名;
 
 #删除atguigudb数据库
@@ -572,7 +574,7 @@ Navicat MySQL是一个强大的MySQL数据库服务器管理和开发工具。�
 
 第二种解决方案如下，用命令行登录MySQL数据库之后，执行如下命令修改用户密码加密规则并更新用户密码，这里修改用户名为“root@localhost”的用户密码规则为“mysql_native_password”，密码值为“123456”，如图所示。
 
-```
+```mysql
 #使用mysql数据库
 USE mysql;
 
@@ -656,7 +658,7 @@ mysql-8.0.22 目录下的各个子目录，包含了 MySQL 各部分组件的源
 
 ### 问题 4 ：命令行客户端的字符集问题
 
-```
+```mysql
 mysql> INSERT INTO t_stu VALUES( 1 ,'张三','男');
 ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'sname' at row 1
 ```
@@ -685,7 +687,7 @@ ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'sname
 
 如果是在修改my.ini之前建的库和表，那么库和表的编码还是原来的Latin1，要么删了重建，要么使用alter语句修改编码。
 
-```
+```sql
 mysql> create database 0728 db charset Latin1;
 Query OK, 1 row affected (0.00 sec)
 mysql> use 0728db;

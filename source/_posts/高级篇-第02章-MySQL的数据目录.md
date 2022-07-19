@@ -1,8 +1,12 @@
 ---
+title: MySQL的数据目录
+date: 2022-07-17 09:25:00
+author: hen
 top: false
 hide: false
-cover: true
+cover: false
 mathjax: false
+summary: MySQL的数据目录
 categories: MySQL
 tags:
   - MySQL
