@@ -1,0 +1,1792 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="存储过程与函数, blog_er">
+    <meta name="description" content="一组经过`预先编译`的 SQL 语句的封装">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>存储过程与函数 | blog_er</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="blog_er" type="application/atom+xml">
+</head>
+
+
+<body>
+    <!-- 白天和黑夜主题 -->
+<div class="sum-moon-box">
+  <a class="btn-floating btn-large waves-effect waves-light" onclick="switchNightMode()" title="切换主题" >
+    <i id="sum-moon-icon" class="fas fa-sun" style="width:48px; height:48px; font-size: 28px;"></i>
+  </a>
+</div>
+
+<script>
+  function switchNightMode() {
+    $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+      setTimeout(function () {
+        $('body').hasClass('DarkMode') 
+        ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+        : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+          
+        setTimeout(function () {
+          $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+            $(this).remove()
+          })
+        }, 2e3)
+      })
+  }
+</script>
+<div class="stars-con">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>  
+</div>
+	<script>
+		/* 模式判断 */
+		if (localStorage.getItem('isDark') === '1') {
+			document.body.classList.add('DarkMode');
+			$('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')
+		} else {
+			document.body.classList.remove('DarkMode');
+			$('#sum-moon-icon').removeleClass("fa-sun").addClass('fa-moon')
+		}
+	</script>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">blog_er</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">blog_er</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/henblog" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/henblog" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">存储过程与函数</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/MySQL/" class="post-category">
+                                MySQL
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-07-17
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.4k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="第15章-存储过程与函数"><a href="#第15章-存储过程与函数" class="headerlink" title="第15章_存储过程与函数"></a>第15章_存储过程与函数</h1><p>MySQL从 5. 0 版本开始支持存储过程和函数。存储过程和函数能够将复杂的SQL逻辑封装在一起，应用程序无须关注存储过程和函数内部复杂的SQL逻辑，而只需要简单地调用存储过程和函数即可。</p>
+<hr>
+<h2 id="1-存储过程概述"><a href="#1-存储过程概述" class="headerlink" title="1. 存储过程概述"></a>1. 存储过程概述</h2><hr>
+<h3 id="1-1-理解"><a href="#1-1-理解" class="headerlink" title="1. 1 理解"></a>1. 1 理解</h3><p><strong>含义</strong> ：存储过程的英文是 <code>Stored Procedure</code>。它的思想很简单，就是一组经过<code>预先编译</code>的 SQL 语句的封装。</p>
+<p>执行过程：存储过程预先存储在 MySQL 服务器上，需要执行的时候，客户端只需要向服务器端发出调用存储过程的命令，服务器端就可以把预先存储好的这一系列 SQL 语句全部执行。</p>
+<p><strong>好处</strong> ：</p>
+<ol>
+<li>简化操作，提高了sql语句的重用性，减少了开发程序员的压力</li>
+<li>减少操作过程中的失误，提高效率</li>
+<li>减少网络传输量（客户端不需要把所有的 SQL 语句通过网络发给服务器）</li>
+<li>减少了 SQL 语句暴露在网上的风险，也提高了数据查询的安全性</li>
+</ol>
+<p><strong>和视图、函数的对比</strong> ：</p>
+<p>它和视图有着同样的优点，清晰、安全，还可以减少网络传输量。不过它和视图不同，视图是<code>虚拟表</code>，通常不对底层数据表直接操作，而存储过程是程序化的 SQL，可以<code>直接操作底层数据表</code>，相比于面向集合的操作方式，能够实现一些更复杂的数据处理。</p>
+<p>一旦存储过程被创建出来，使用它就像使用函数一样简单，我们直接通过调用存储过程名即可。相较于函数，存储过程是<code>没有返回值</code>的。</p>
+<h3 id="1-2-分类"><a href="#1-2-分类" class="headerlink" title="1. 2 分类"></a>1. 2 分类</h3><p>存储过程的参数类型可以是IN、OUT和INOUT。根据这点分类如下：</p>
+<ol>
+<li>没有参数（无参数无返回）</li>
+<li>仅仅带 IN 类型（有参数无返回）</li>
+<li>仅仅带 OUT 类型（无参数有返回）</li>
+<li>既带 IN 又带 OUT（有参数有返回）</li>
+<li>带 INOUT（有参数有返回）</li>
+</ol>
+<p>注意：IN、OUT、INOUT 都可以在一个存储过程中带多个。</p>
+<hr>
+<h2 id="2-创建存储过程"><a href="#2-创建存储过程" class="headerlink" title="2. 创建存储过程"></a>2. 创建存储过程</h2><hr>
+<h3 id="2-1-语法分析"><a href="#2-1-语法分析" class="headerlink" title="2. 1 语法分析"></a>2. 1 语法分析</h3><p>语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE PROCEDURE 存储过程名(IN|OUT|INOUT 参数名 参数类型,...)
+[characteristics ...]
+	BEGIN
+		存储过程体
+	END<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>类似于Java中的方法：</p>
+<pre class="line-numbers language-none"><code class="language-none">修饰符 返回类型 方法名(参数类型 参数名,...)&#123;
+	方法体;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>说明：</p>
+<ol>
+<li><p>参数前面的符号的意思</p>
+<ul>
+<li><code>IN</code>：当前参数为输入参数，也就是表示入参；<br>存储过程只是读取这个参数的值。如果没有定义参数种类，<code>默认就是 IN</code>，表示输入参数。</li>
+<li><code>OUT</code>：当前参数为输出参数，也就是表示出参；<br>执行完成之后，调用这个存储过程的客户端或者应用程序就可以读取这个参数返回的值了。</li>
+<li><code>INOUT</code>：当前参数既可以为输入参数，也可以为输出参数。</li>
+</ul>
+</li>
+<li><p>形参类型可以是 MySQL数据库中的任意类型。</p>
+</li>
+<li><p><code>characteristics</code> 表示创建存储过程时指定的对存储过程的约束条件，其取值信息如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">LANGUAGE SQL
+| [NOT] DETERMINISTIC
+| &#123; CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA &#125;
+| SQL SECURITY &#123; DEFINER | INVOKER &#125;
+| COMMENT &#39;string&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>LANGUAGE SQL</code>：说明存储过程执行体是由SQL语句组成的，当前系统支持的语言为SQL。</p>
+</li>
+<li><p><code>[NOT] DETERMINISTIC</code>：指明存储过程执行的结果是否确定。DETERMINISTIC表示结果是确定的。每次执行存储过程时，相同的输入会得到相同的输出。NOT DETERMINISTIC表示结果是不确定的，相同的输入可能得到不同的输出。如果没有指定任意一个值，默认为NOT DETERMINISTIC。</p>
+</li>
+<li><pre><code>&#123; CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA &#125;
+<pre class="line-numbers language-none"><code class="language-none">
+  ：指明子程序使用SQL语句的限制。
+
+  - CONTAINS SQL表示当前存储过程的子程序包含SQL语句，但是并不包含读写数据的SQL语句；
+  - NO SQL表示当前存储过程的子程序中不包含任何SQL语句；
+  - READS SQL DATA表示当前存储过程的子程序中包含读数据的SQL语句；
+  - MODIFIES SQL DATA表示当前存储过程的子程序中包含写数据的SQL语句。
+  - 默认情况下，系统会指定为CONTAINS SQL。
+
+- &#96;&#96;&#96;
+  SQL SECURITY &#123; DEFINER | INVOKER &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+：执行当前存储过程的权限，即指明哪些用户能够执行当前存储过程。
+
+- `DEFINER`表示只有当前存储过程的创建者或者定义者才能执行当前存储过程；
+- `INVOKER`表示拥有当前存储过程的访问权限的用户能够执行当前存储过程。
+- 如果没有设置相关的值，则MySQL默认指定值为DEFINER。
+</code></pre>
+</li>
+<li><p><code>COMMENT &#39;string&#39;</code>：注释信息，可以用来描述存储过程。</p>
+</li>
+</ul>
+</li>
+<li><p>存储过程体中可以有多条 SQL 语句，如果仅仅一条SQL 语句，则可以省略 BEGIN 和 END<br>编写存储过程并不是一件简单的事情，可能存储过程中需要复杂的 SQL 语句。</p>
+<pre class="line-numbers language-none"><code class="language-none">1. BEGIN...END：BEGIN...END 中间包含了多个语句，每个语句都以（;）号为结束符。
+2. DECLARE：DECLARE 用来声明变量，使用的位置在于 BEGIN...END 语句中间，而且需要在其他语句使用之前进行变量的声明。
+3. SET：赋值语句，用于对变量进行赋值。
+4. SELECT... INTO：把从数据表中查询的结果存放到变量中，也就是为变量赋值。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>需要设置新的结束标记</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER 新的结束标记<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>因为MySQL默认的语句结束符号为分号‘;’。为了避免与存储过程中SQL语句结束符相冲突，需要使用DELIMITER改变存储过程的结束符。</p>
+<p>比如：“DELIMITER &#x2F;&#x2F;”语句的作用是将MySQL的结束符设置为&#x2F;&#x2F;，并以“END &#x2F;&#x2F;”结束存储过程。存储过程定义完毕之后再使用“DELIMITER ;”恢复默认结束符。DELIMITER也可以指定其他符号作为结束符。</p>
+<p>当使用DELIMITER命令时，应该避免使用反斜杠（‘\’）字符，因为反斜线是MySQL的转义字符。</p>
+<p>示例：</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER $
+
+CREATE PROCEDURE 存储过程名(IN|OUT|INOUT 参数名 参数类型,...)
+[characteristics ...]
+	BEGIN
+		sql语句1;
+		sql语句2;
+
+	END $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="2-2-代码举例"><a href="#2-2-代码举例" class="headerlink" title="2. 2 代码举例"></a>2. 2 代码举例</h3><p>举例 1 ：创建存储过程select_all_data()，查看 emps 表的所有数据</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER $
+
+CREATE PROCEDURE select_all_data()
+	BEGIN
+		SELECT * FROM emps;
+	END $
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 2 ：创建存储过程avg_employee_salary()，返回所有员工的平均工资</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE avg_employee_salary ()
+	BEGIN
+		SELECT AVG(salary) AS avg_salary FROM emps;
+	END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 3 ：创建存储过程show_max_salary()，用来查看“emps”表的最高薪资值。</p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE PROCEDURE show_max_salary()
+	LANGUAGE SQL
+	NOT DETERMINISTIC
+	CONTAINS SQL
+	SQL SECURITY DEFINER
+	COMMENT &#39;查看最高薪资&#39;
+	BEGIN
+		SELECT MAX(salary) FROM emps;
+	END &#x2F;&#x2F;
+	
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 4 ：创建存储过程show_min_salary()，查看“emps”表的最低薪资值。并将最低薪资通过OUT参数“ms”输出</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE show_min_salary(OUT ms DOUBLE)
+	BEGIN
+		SELECT MIN(salary) INTO ms FROM emps;
+	END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 5 ：创建存储过程show_someone_salary()，查看“emps”表的某个员工的薪资，并用IN参数empname输入员工姓名。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE show_someone_salary(IN empname VARCHAR( 20 ))
+	BEGIN
+		SELECT salary FROM emps WHERE ename &#x3D; empname;
+	END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 6 ：创建存储过程show_someone_salary2()，查看“emps”表的某个员工的薪资，并用IN参数empname输入员工姓名，用OUT参数empsalary输出员工薪资。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE show_someone_salary2(IN empname VARCHAR( 20 ),OUT empsalary DOUBLE)
+	BEGIN
+		SELECT salary INTO empsalary FROM emps WHERE ename &#x3D; empname;
+	END &#x2F;&#x2F;
+	
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例 7 ：创建存储过程show_mgr_name()，查询某个员工领导的姓名，并用INOUT参数“empname”输入员工姓名，输出领导的姓名。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE show_mgr_name(INOUT empname VARCHAR( 20 ))
+	BEGIN
+		SELECT ename INTO empname FROM emps
+		WHERE eid &#x3D; (SELECT MID FROM emps WHERE ename&#x3D;empname);
+	END &#x2F;&#x2F;
+	
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="3-调用存储过程"><a href="#3-调用存储过程" class="headerlink" title="3. 调用存储过程"></a>3. 调用存储过程</h2><hr>
+<h3 id="3-1-调用格式"><a href="#3-1-调用格式" class="headerlink" title="3. 1 调用格式"></a>3. 1 调用格式</h3><p>存储过程有多种调用方法。存储过程必须使用CALL语句调用，并且存储过程和数据库相关，如果要执行其他数据库中的存储过程，需要指定数据库名称，例如CALL dbname.procname。</p>
+<pre class="line-numbers language-none"><code class="language-none">CALL 存储过程名(实参列表)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>格式：</strong></p>
+<ol>
+<li><p>调用in模式的参数：</p>
+<pre class="line-numbers language-none"><code class="language-none">CALL sp1(&#39;值&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>调用out模式的参数：</p>
+<pre class="line-numbers language-none"><code class="language-none">SET @name;
+CALL sp1(@name);
+SELECT @name;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>调用inout模式的参数：</p>
+<pre class="line-numbers language-none"><code class="language-none">SET @name&#x3D;值;
+CALL sp1(@name);
+SELECT @name;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="3-2-代码举例"><a href="#3-2-代码举例" class="headerlink" title="3. 2 代码举例"></a>3. 2 代码举例</h3><p><strong>举例 1 ：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE CountProc(IN sid INT,OUT num INT)
+	BEGIN
+		SELECT COUNT(*) INTO num FROM fruits
+		WHERE s_id &#x3D; sid;
+	END &#x2F;&#x2F;
+	
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用存储过程：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; CALL CountProc ( 101 , @num);
+Query OK, 1 row affected (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>查看返回结果：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT @num;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>该存储过程返回了指定 s_id&#x3D;101 的水果商提供的水果种类，返回值存储在num变量中，使用SELECT查看，返回结果为 3 。</p>
+<p><strong>举例 2 ：</strong> 创建存储过程，实现累加运算，计算 1+2+…+n 等于多少。具体的代码如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE PROCEDURE &#96;add_num&#96;(IN n INT)
+	BEGIN
+		DECLARE i INT;
+		DECLARE sum INT;
+		
+		SET i &#x3D; 1 ;
+		SET sum &#x3D; 0 ;
+		WHILE i &lt;&#x3D; n DO
+			SET sum &#x3D; sum + i;
+			SET i &#x3D; i + 1 ;
+        END WHILE;
+        SELECT sum;
+	END &#x2F;&#x2F;
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果你用的是 Navicat 工具，那么在编写存储过程的时候，Navicat 会自动设置 DELIMITER 为其他符号，我们不需要再进行 DELIMITER 的操作。</p>
+<p>直接使用 <code>CALL add_num(50);</code>即可。这里我传入的参数为50，也就是统计1+2+…+50的积累之和。</p>
+<h3 id="3-3-如何调试"><a href="#3-3-如何调试" class="headerlink" title="3. 3 如何调试"></a>3. 3 如何调试</h3><p>在 MySQL 中，存储过程不像普通的编程语言（比如 VC++、Java 等）那样有专门的集成开发环境。因此，你可以通过 SELECT 语句，把程序执行的中间结果查询出来，来调试一个 SQL 语句的正确性。调试成功之后，把 SELECT 语句后移到下一个 SQL 语句之后，再调试下一个 SQL 语句。这样<code>逐步推进</code>，就可以完成对存储过程中所有操作的调试了。当然，你也可以把存储过程中的 SQL 语句复制出来，逐段单独调试。</p>
+<hr>
+<h2 id="4-存储函数的使用"><a href="#4-存储函数的使用" class="headerlink" title="4. 存储函数的使用"></a>4. 存储函数的使用</h2><hr>
+<p>前面学习了很多函数，使用这些函数可以对数据进行的各种处理操作，极大地提高用户对数据库的管理效率。MySQL支持自定义函数，定义好之后，调用方式与调用MySQL预定义的系统函数一样。</p>
+<h3 id="4-1-语法分析"><a href="#4-1-语法分析" class="headerlink" title="4. 1 语法分析"></a>4. 1 语法分析</h3><p>学过的函数：LENGTH、SUBSTR、CONCAT等</p>
+<p>语法格式：</p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE FUNCTION 函数名(参数名 参数类型,...)
+RETURNS 返回值类型
+[characteristics ...]
+BEGIN
+	函数体 #函数体中肯定有 RETURN 语句
+END<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明：</p>
+<ol>
+<li>参数列表：指定参数为IN、OUT或INOUT只对PROCEDURE是合法的，FUNCTION中总是默认为IN参数。</li>
+<li>RETURNS type 语句表示函数返回数据的类型；<br>RETURNS子句只能对FUNCTION做指定，对函数而言这是<code>强制</code>的。它用来指定函数的返回类型，而且函数体必须包含一个<code>RETURN value</code>语句。</li>
+<li>characteristic 创建函数时指定的对函数的约束。取值与创建存储过程时相同，这里不再赘述。</li>
+<li>函数体也可以用BEGIN…END来表示SQL代码的开始和结束。如果函数体只有一条语句，也可以省略BEGIN…END。</li>
+</ol>
+<h3 id="4-2-调用存储函数"><a href="#4-2-调用存储函数" class="headerlink" title="4. 2 调用存储函数"></a>4. 2 调用存储函数</h3><p>在MySQL中，存储函数的使用方法与MySQL内部函数的使用方法是一样的。换言之，用户自己定义的存储函数与MySQL内部函数是一个性质的。区别在于，存储函数是<code>用户自己定义</code>的，而内部函数是MySQL的<code>开发者定义</code>的。</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT 函数名(实参列表)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="4-3-代码举例"><a href="#4-3-代码举例" class="headerlink" title="4. 3 代码举例"></a>4. 3 代码举例</h3><p><strong>举例 1 ：</strong></p>
+<p>创建存储函数，名称为email_by_name()，参数定义为空，该函数查询Abel的email，并返回，数据类型为字符串型。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE FUNCTION email_by_name()
+RETURNS VARCHAR( 25 )
+DETERMINISTIC
+CONTAINS SQL
+BEGIN
+	RETURN (SELECT email FROM employees WHERE last_name &#x3D; &#39;Abel&#39;);
+END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT email_by_name();<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>举例 2 ：</strong></p>
+<p>创建存储函数，名称为email_by_id()，参数传入emp_id，该函数查询emp_id的email，并返回，数据类型为字符串型。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE FUNCTION email_by_id(emp_id INT)
+RETURNS VARCHAR( 25 )
+DETERMINISTIC
+CONTAINS SQL
+BEGIN
+	RETURN (SELECT email FROM employees WHERE employee_id &#x3D; emp_id);
+END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用：</p>
+<pre class="line-numbers language-none"><code class="language-none">SET @emp_id &#x3D; 102 ;
+SELECT email_by_id( 102 );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>举例 3 ：</strong></p>
+<p>创建存储函数count_by_id()，参数传入dept_id，该函数查询dept_id部门的员工人数，并返回，数据类型为整型。</p>
+<pre class="line-numbers language-none"><code class="language-none">DELIMITER &#x2F;&#x2F;
+
+CREATE FUNCTION count_by_id(dept_id INT)
+RETURNS INT
+	LANGUAGE SQL
+	NOT DETERMINISTIC
+	READS SQL DATA
+	SQL SECURITY DEFINER
+	COMMENT &#39;查询部门平均工资&#39;
+BEGIN
+	RETURN (SELECT COUNT(*) FROM employees WHERE department_id &#x3D; dept_id);
+END &#x2F;&#x2F;
+
+DELIMITER ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用：</p>
+<pre class="line-numbers language-none"><code class="language-none">SET @dept_id &#x3D; 50 ;
+SELECT count_by_id(@dept_id);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>注意：</strong></p>
+<p>若在创建存储函数中报错“<code>you might want to use the less safe log_bin_trust_function_creators variable</code>”，有两种处理方法：</p>
+<ul>
+<li><p>方式 1 ：加上必要的函数特性“[NOT] DETERMINISTIC”和“{CONTAINS SQL | NO SQL | READS SQL DATA |MODIFIES SQL DATA}”</p>
+</li>
+<li><p>方式 2 ：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SET GLOBAL log_bin_trust_function_creators &#x3D; 1 ;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="4-4-对比存储函数和存储过程"><a href="#4-4-对比存储函数和存储过程" class="headerlink" title="4. 4 对比存储函数和存储过程"></a>4. 4 对比存储函数和存储过程</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>关键字</th>
+<th>调用语法</th>
+<th>返回值</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储过程</td>
+<td>PROCEDURE</td>
+<td>CALL 存储过程()</td>
+<td>理解为有 0 个或多个</td>
+<td>一般用于更新</td>
+</tr>
+<tr>
+<td>存储函数</td>
+<td>FUNCTION</td>
+<td>SELECT 函数()</td>
+<td>只能是一个</td>
+<td>一般用于查询结果为一个值并返回时</td>
+</tr>
+</tbody></table>
+<p>此外， <strong>存储函数可以放在查询语句中使用，存储过程不行</strong> 。反之，存储过程的功能更加强大，包括能够执行对表的操作（比如创建表，删除表等）和事务操作，这些功能是存储函数不具备的。</p>
+<hr>
+<h2 id="5-存储过程和函数的查看、修改、删除"><a href="#5-存储过程和函数的查看、修改、删除" class="headerlink" title="5. 存储过程和函数的查看、修改、删除"></a>5. 存储过程和函数的查看、修改、删除</h2><hr>
+<h3 id="5-1-查看"><a href="#5-1-查看" class="headerlink" title="5. 1 查看"></a>5. 1 查看</h3><p>创建完之后，怎么知道我们创建的存储过程、存储函数是否成功了呢？</p>
+<p>MySQL存储了存储过程和函数的状态信息，用户可以使用SHOW STATUS语句或SHOW CREATE语句来查看，也可直接从系统的information_schema数据库中查询。这里介绍 3 种方法。</p>
+<p><strong>1. 使用SHOW CREATE语句查看存储过程和函数的创建信息</strong></p>
+<p>基本语法结构如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">SHOW CREATE &#123;PROCEDURE | FUNCTION&#125; 存储过程名或函数名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>举例：</p>
+<pre class="line-numbers language-none"><code class="language-none">SHOW CREATE FUNCTION test_db.CountProc \G<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>2. 使用SHOW STATUS语句查看存储过程和函数的状态信息</strong></p>
+<p>基本语法结构如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">SHOW &#123;PROCEDURE | FUNCTION&#125; STATUS [LIKE &#39;pattern&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个语句返回子程序的特征，如数据库、名字、类型、创建者及创建和修改日期。</p>
+<p>[LIKE ‘pattern’]：匹配存储过程或函数的名称，可以省略。当省略不写时，会列出MySQL数据库中存在的所有存储过程或函数的信息。 举例：SHOW STATUS语句示例，代码如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SHOW PROCEDURE STATUS LIKE &#39;SELECT%&#39; \G
+*************************** 1. row ***************************
+Db: test_db
+Name: SelectAllData
+Type: PROCEDURE
+Definer: root@localhost
+Modified: 2021 - 10 - 16 15 :55:
+Created: 2021 - 10 - 16 15 :55:
+Security_type: DEFINER
+Comment:
+character_set_client: utf8mb
+collation_connection: utf8mb4_general_ci
+Database Collation: utf8mb4_general_ci
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>3. 从information_schema.Routines表中查看存储过程和函数的信息</strong></p>
+<p>MySQL中存储过程和函数的信息存储在information_schema数据库下的Routines表中。可以通过查询该表的记录来查询存储过程和函数的信息。其基本语法形式如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM information_schema.Routines
+WHERE ROUTINE_NAME&#x3D;&#39;存储过程或函数的名&#39;[AND ROUTINE_TYPE&#x3D;&#123;&#39;PROCEDURE|FUNCTION&#39;&#125;];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>说明：如果在MySQL数据库中存在存储过程和函数名称相同的情况，最好指定ROUTINE_TYPE查询条件来指明查询的是存储过程还是函数。</p>
+<p>举例：从Routines表中查询名称为CountProc的存储函数的信息，代码如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM information_schema.Routines
+WHERE ROUTINE_NAME&#x3D;&#39;count_by_id&#39; AND ROUTINE_TYPE &#x3D; &#39;FUNCTION&#39; \G<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-修改"><a href="#5-2-修改" class="headerlink" title="5. 2 修改"></a>5. 2 修改</h3><p>修改存储过程或函数，不影响存储过程或函数功能，只是修改相关特性。使用ALTER语句实现。</p>
+<pre class="line-numbers language-none"><code class="language-none">ALTER &#123;PROCEDURE | FUNCTION&#125; 存储过程或函数的名 [characteristic ...]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>其中，characteristic指定存储过程或函数的特性，其取值信息与创建存储过程、函数时的取值信息略有不同。</p>
+<pre class="line-numbers language-none"><code class="language-none">&#123; CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA &#125;
+| SQL SECURITY &#123; DEFINER | INVOKER &#125;
+| COMMENT &#39;string&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>CONTAINS SQL</code>，表示子程序包含SQL语句，但不包含读或写数据的语句。</p>
+</li>
+<li><p><code>NO SQL</code>，表示子程序中不包含SQL语句。</p>
+</li>
+<li><p><code>READS SQL DATA</code>，表示子程序中包含读数据的语句。</p>
+</li>
+<li><p><code>MODIFIES SQL DATA</code>，表示子程序中包含写数据的语句。</p>
+</li>
+<li><p>&#96;&#96;&#96;<br>SQL SECURITY { DEFINER | INVOKER }</p>
+<pre class="line-numbers language-none"><code class="language-none">
+  ，指明谁有权限来执行。
+
+  - &#96;DEFINER&#96;，表示只有定义者自己才能够执行。
+  - &#96;INVOKER&#96;，表示调用者可以执行。
+
+- &#96;COMMENT &#39;string&#39;&#96;，表示注释信息。
+
+&gt; 修改存储过程使用ALTER PROCEDURE语句，修改存储函数使用ALTER FUNCTION语句。但是，这两个语句的结构是一样的，语句中的所有参数也是一样的。
+
+**举例 1 ：**
+
+修改存储过程CountProc的定义。将读写权限改为MODIFIES SQL DATA，并指明调用者可以执行，代码如下：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ALTER PROCEDURE CountProc<br>MODIFIES SQL DATA<br>SQL SECURITY INVOKER ;</p>
+<pre class="line-numbers language-none"><code class="language-none">
+查询修改后的信息：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>SELECT specific_name,sql_data_access,security_type<br>FROM information_schema.<code>ROUTINES</code><br>WHERE routine_name &#x3D; ‘CountProc’ AND routine_type &#x3D; ‘PROCEDURE’;</p>
+<pre class="line-numbers language-none"><code class="language-none">
+结果显示，存储过程修改成功。从查询的结果可以看出，访问数据的权限（SQL_DATA_ ACCESS）已经变成MODIFIES SQL DATA，安全类型（SECURITY_TYPE）已经变成INVOKER。
+
+**举例 2 ：**
+
+修改存储函数CountProc的定义。将读写权限改为READS SQL DATA，并加上注释信息“FIND NAME”，代码如下：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ALTER FUNCTION CountProc<br>READS SQL DATA<br>COMMENT ‘FIND NAME’ ;</p>
+<pre class="line-numbers language-none"><code class="language-none">
+存储函数修改成功。从查询的结果可以看出，访问数据的权限（SQL_DATA_ACCESS）已经变成READS SQL DATA，函数注释（ROUTINE_COMMENT）已经变成FIND NAME。
+
+### 5. 3 删除
+
+删除存储过程和函数，可以使用DROP语句，其语法结构如下：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>DROP {PROCEDURE | FUNCTION} [IF EXISTS] 存储过程或函数的名</p>
+<pre class="line-numbers language-none"><code class="language-none">
+IF EXISTS：如果程序或函数不存储，它可以防止发生错误，产生一个用SHOW WARNINGS查看的警告。
+
+举例：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>DROP PROCEDURE CountProc;<br>DROP FUNCTION CountProc;</p>
+</li>
+</ul>
+<p>&#96;&#96;&#96;</p>
+<hr>
+<h2 id="6-关于存储过程使用的争议"><a href="#6-关于存储过程使用的争议" class="headerlink" title="6. 关于存储过程使用的争议"></a>6. 关于存储过程使用的争议</h2><hr>
+<p>尽管存储过程有诸多优点，但是对于存储过程的使用， <strong>一直都存在着很多争议</strong> ，比如有些公司对于大型项目要求使用存储过程，而有些公司在手册中明确禁止使用存储过程，为什么这些公司对存储过程的使用需求差别这么大呢？</p>
+<h3 id="6-1-优点"><a href="#6-1-优点" class="headerlink" title="6. 1 优点"></a>6. 1 优点</h3><ol>
+<li><strong>存储过程可以一次编译多次使用。</strong>存储过程只在创建时进行编译，之后的使用都不需要重新编译，这就提升了 SQL 的执行效率。</li>
+<li><strong>可以减少开发工作量。</strong> 将代码<code>封装</code>成模块，实际上是编程的核心思想之一，这样可以把复杂的问题拆解成不同的模块，然后模块之间可以<code>重复使用</code>，在减少开发工作量的同时，还能保证代码的结构清晰。</li>
+<li><strong>存储过程的安全性强。</strong> 我们在设定存储过程的时候可以<code>设置对用户的使用权限</code>，这样就和视图一样具有较强的安全性。</li>
+<li><strong>可以减少网络传输量。</strong> 因为代码封装到存储过程中，每次使用只需要调用存储过程即可，这样就减少了网络传输量。</li>
+<li><strong>良好的封装性。</strong> 在进行相对复杂的数据库操作时，原本需要使用一条一条的 SQL 语句，可能要连接多次数据库才能完成的操作，现在变成了一次存储过程，只需要<code>连接一次即可</code>。</li>
+</ol>
+<h3 id="6-2-缺点"><a href="#6-2-缺点" class="headerlink" title="6. 2 缺点"></a>6. 2 缺点</h3><p>基于上面这些优点，不少大公司都要求大型项目使用存储过程，比如微软、IBM 等公司。但是国内的阿里并不推荐开发人员使用存储过程，这是为什么呢？</p>
+<blockquote>
+<p><strong>阿里开发规范</strong></p>
+<p>【强制】禁止使用存储过程，存储过程难以调试和扩展，更没有移植性。</p>
+</blockquote>
+<p>存储过程虽然有诸如上面的好处，但缺点也是很明显的。</p>
+<ol>
+<li><strong>可移植性差。</strong> 存储过程不能跨数据库移植，比如在 MySQL、Oracle 和 SQL Server 里编写的存储过程，在换成其他数据库时都需要重新编写。</li>
+<li><strong>调试困难。</strong> 只有少数 DBMS 支持存储过程的调试。对于复杂的存储过程来说，开发和维护都不容易。虽然也有一些第三方工具可以对存储过程进行调试，但要收费。</li>
+<li><strong>存储过程的版本管理很困难。</strong> 比如数据表索引发生变化了，可能会导致存储过程失效。我们在开发软件的时候往往需要进行版本管理，但是存储过程本身没有版本控制，版本迭代更新的时候很麻烦。</li>
+<li><strong>它不适合高并发的场景。</strong> 高并发的场景需要减少数据库的压力，有时数据库会采用分库分表的方式，而且对可扩展性要求很高，在这种情况下，存储过程会变得难以维护，<code>增加数据库的压力</code>，显然就不适用了。</li>
+</ol>
+<p>小结：</p>
+<p>存储过程既方便，又有局限性。尽管不同的公司对存储过程的态度不一，但是对于我们开发人员来说，不论怎样，掌握存储过程都是必备的技能之一。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">hen</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://henblog.github.io/2022/07/17/di-15-zhang-cun-chu-guo-cheng-yu-han-shu/">http://henblog.github.io/2022/07/17/di-15-zhang-cun-chu-guo-cheng-yu-han-shu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">hen</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/07/17/di-14-zhang-shi-tu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="视图">
+                        
+                        <span class="card-title">视图</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数据的逻辑显示，视图并不存储数据
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/07/17/di-16-zhang-bian-liang-liu-cheng-kong-zhi-yu-you-biao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="变量、流程控制与游标">
+                        
+                        <span class="card-title">变量、流程控制与游标</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            变量、流程控制与游标
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <a href="/about" target="_blank">henblog</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/henblog" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:henblog@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=994554503" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 994554503" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://space.bilibili.com/102520840" class="tooltipped" target="_blank" data-tooltip="关注我的Bilibili" data-position="top" data-delay="50">
+        <i class="fas fa-play-circle"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura-small.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
