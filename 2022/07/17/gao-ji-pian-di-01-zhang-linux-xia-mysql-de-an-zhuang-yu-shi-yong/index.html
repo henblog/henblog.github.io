@@ -507,7 +507,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.6k
                 </div>
                 
 
@@ -547,7 +547,7 @@
 yum list installed | grep mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>3.</strong> <strong>卸载上述命令查询出的已安装程序</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">yum remove mysql-xxx mysql-xxx mysql-xxx mysqk-xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">yum remove mysql-xxx mysql-xxx mysql-xxx mysql-xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>务必卸载干净，反复执行<code>rpm -qa | grep -i mysql</code>确认是否有卸载残留</p>
 <p><strong>4.</strong> <strong>删除</strong> <strong>mysql</strong> <strong>相关文件</strong></p>
@@ -602,7 +602,7 @@ mysqladmin --version<span aria-hidden="true" class="line-numbers-rows"><span></s
 <pre class="line-numbers language-none"><code class="language-none">cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>root@localhost: 后面就是初始化的密码</p>
-<h3 id="2-5-启动MySQL，查看状态"><a href="#2-5-启动MySQL，查看状态" class="headerlink" title="2.5 启动MySQL，查看状态"></a><strong>2.5</strong> <strong>启动MySQL，查看状态</strong></h3><pre class="line-numbers language-none"><code class="language-none">#加不加.service后缀都可以 
+<h3 id="2-5-启动MySQL，查看状态"><a href="#2-5-启动MySQL，查看状态" class="headerlink" title="2.5 启动MySQL，查看状态"></a><strong>2.5</strong> <strong>启动MySQL，查看状态</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#加不加.service后缀都可以 </span>
 启动：systemctl start mysqld.service 
 关闭：systemctl stop mysqld.service 
 重启：systemctl restart mysqld.service 
@@ -669,10 +669,10 @@ firewall-cmd --add-port&#x3D;3306&#x2F;tcp --permanent<span aria-hidden="true" c
 <ul>
 <li>修改允许远程登陆</li>
 </ul>
-<pre class="line-numbers language-none"><code class="language-none">use mysql;
-select Host,User from user;
-update user set host &#x3D; &#39;%&#39; where user &#x3D;&#39;root&#39;;
-flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">use</span> mysql<span class="token punctuation">;</span>
+<span class="token keyword">select</span> Host<span class="token punctuation">,</span><span class="token keyword">User</span> <span class="token keyword">from</span> <span class="token keyword">user</span><span class="token punctuation">;</span>
+<span class="token keyword">update</span> <span class="token keyword">user</span> <span class="token keyword">set</span> host <span class="token operator">=</span> <span class="token string">'%'</span> <span class="token keyword">where</span> <span class="token keyword">user</span> <span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">;</span>
+flush <span class="token keyword">privileges</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p><code>%</code>是个 通配符 ，如果Host&#x3D;192.168.1.%，那么就表示只要是IP地址前缀为“192.168.1.”的客户端都可以连接。如果<code>Host=%</code>，表示所有IP都有连接权限。</p>
@@ -681,7 +681,7 @@ flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span
 <p>配置新连接报错：错误号码 2058，分析是 mysql 密码加密方法变了。</p>
 <p><strong>解决方法一：</strong>升级远程连接工具版本</p>
 <p><strong>解决方法二：</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;abc123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">USER</span> <span class="token string">'root'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">WITH</span> mysql_native_password <span class="token keyword">BY</span> <span class="token string">'abc123'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="5-字符集的相关操作"><a href="#5-字符集的相关操作" class="headerlink" title="5. 字符集的相关操作"></a><strong>5.</strong> <strong>字符集的相关操作</strong></h2><hr>
 <h3 id="5-1-各级别的字符集"><a href="#5-1-各级别的字符集" class="headerlink" title="5.1 各级别的字符集"></a><strong>5.1</strong> <strong>各级别的字符集</strong></h3><pre class="line-numbers language-none"><code class="language-none">show variables like &#39;character%&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -704,6 +704,23 @@ A(客户端) --&gt; |&quot;使用操作系统的字符集编码请求字符串&q
 B --&gt; C(从character_set_connection转换为具体的列使用的字符集)
 C --&gt; D(将查询结果从具体的列上使用的字符集转换为character_set_results)
 D --&gt; |&quot;使用操作系统的字符集解码响应的字符串&quot;| A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-docker安装MySQL"><a href="#6-docker安装MySQL" class="headerlink" title="6.docker安装MySQL"></a>6.docker安装MySQL</h2><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># docker 中下载 mysql</span>
+docker pull mysql
+
+<span class="token comment">#启动</span>
+docker run <span class="token comment">--name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Lzslov123! -d mysql</span>
+
+<span class="token comment">#进入容器</span>
+docker <span class="token keyword">exec</span> <span class="token operator">-</span>it mysql bash
+
+<span class="token comment">#登录mysql</span>
+mysql <span class="token operator">-</span>u root <span class="token operator">-</span>p
+<span class="token keyword">ALTER</span> <span class="token keyword">USER</span> <span class="token string">'root'</span><span class="token variable">@'localhost'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'Lzslov123!'</span><span class="token punctuation">;</span>
+
+<span class="token comment">#添加远程登录用户</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">USER</span> <span class="token string">'liaozesong'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">WITH</span> mysql_native_password <span class="token keyword">BY</span> <span class="token string">'Lzslov123!'</span><span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'liaozesong'</span><span class="token variable">@'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -729,7 +746,7 @@ D --&gt; |&quot;使用操作系统的字符集解码响应的字符串&quot;| A<
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong-fu-ben/">http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong-fu-ben/</a>
+                    <a href="http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong/">http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
