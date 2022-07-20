@@ -530,7 +530,7 @@
                 <h1 id="kettle使用-2-使用SQL和JAVA脚本"><a href="#kettle使用-2-使用SQL和JAVA脚本" class="headerlink" title="kettle使用(2)-使用SQL和JAVA脚本"></a>kettle使用(2)-使用SQL和JAVA脚本</h1><h2 id="kettle中执行SQL脚本"><a href="#kettle中执行SQL脚本" class="headerlink" title="kettle中执行SQL脚本"></a>kettle中执行SQL脚本</h2><ul>
 <li>在转换中需要勾选 <strong>执行每一行   变量替换</strong>；</li>
 <li>SQL中如果字段是字符类型的需要加引号 <strong>‘?’</strong> ;</li>
-<li>SQL中的变量用**?&#x2F;${var}**(测试有问题)代替;</li>
+<li>SQL中的变量用 <strong>?&#x2F;${var}</strong> (测试有问题)代替;</li>
 <li><strong>?<strong>为变量时：在</strong>作为参数的字段</strong>中顺序填入变量(需要一一对应)，定义参数需要将文件作为输入，里面的字段值就是参数；</li>
 <li>${var}为变量时：在<strong>转换属性</strong>的<strong>命名参数</strong>中设置变量；</li>
 </ul>
