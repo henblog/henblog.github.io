@@ -1,8 +1,12 @@
 ---
+title: MySQL数据类型
+date: 2022-07-17 09:25:00
+author: hen
 top: false
 hide: false
-cover: true
+cover: false
 mathjax: false
+summary: 数据类型
 categories: MySQL
 tags:
   - MySQL
@@ -10,8 +14,6 @@ tags:
 ---
 
 # 第12章_MySQL数据类型精讲
-
- 2022-04-17   2022-04-18   [技术博客](https://new-wangz.github.io/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/)   302   [3](https://new-wangz.github.io/2022/04/17/%E7%AC%AC12%E7%AB%A0-MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%B2%BE%E8%AE%B2/#valine-comments)
 
 ## 1. MySQL中的数据类型
 

@@ -1,8 +1,12 @@
 ---
+title: Linux下MySQL的安装与使用
+date: 2022-07-17 09:25:00
+author: hen
 top: false
 hide: false
-cover: true
+cover: false
 mathjax: false
+summary: Linux下卸载、安装、登录、配置MySQL
 categories: MySQL
 tags:
   - MySQL
@@ -48,7 +52,7 @@ yum list installed | grep mysql
 **3.** **卸载上述命令查询出的已安装程序**
 
 ```
-yum remove mysql-xxx mysql-xxx mysql-xxx mysqk-xxxx
+yum remove mysql-xxx mysql-xxx mysql-xxx mysql-xxxx
 ```
 
 务必卸载干净，反复执行`rpm -qa | grep -i mysql`确认是否有卸载残留
@@ -143,7 +147,7 @@ root@localhost: 后面就是初始化的密码
 
 ### **2.5** **启动MySQL，查看状态**
 
-```
+```bash
 #加不加.service后缀都可以 
 启动：systemctl start mysqld.service 
 关闭：systemctl stop mysqld.service 
@@ -243,7 +247,7 @@ firewall-cmd --reload
 
 - 修改允许远程登陆
 
-```
+```sql
 use mysql;
 select Host,User from user;
 update user set host = '%' where user ='root';
@@ -260,7 +264,7 @@ flush privileges;
 
 **解决方法二：**
 
-```
+```sql
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'abc123';
 ```
 
@@ -294,4 +298,25 @@ A(客户端) --> |"使用操作系统的字符集编码请求字符串"| B(从ch
 B --> C(从character_set_connection转换为具体的列使用的字符集)
 C --> D(将查询结果从具体的列上使用的字符集转换为character_set_results)
 D --> |"使用操作系统的字符集解码响应的字符串"| A
+```
+
+## 6.docker安装MySQL
+
+```sql
+# docker 中下载 mysql
+docker pull mysql
+
+#启动
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Lzslov123! -d mysql
+
+#进入容器
+docker exec -it mysql bash
+
+#登录mysql
+mysql -u root -p
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Lzslov123!';
+
+#添加远程登录用户
+CREATE USER 'liaozesong'@'%' IDENTIFIED WITH mysql_native_password BY 'Lzslov123!';
+GRANT ALL PRIVILEGES ON *.* TO 'liaozesong'@'%';
 ```

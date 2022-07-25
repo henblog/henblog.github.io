@@ -1,8 +1,12 @@
 ---
+title: MySQL8其他新特性
+date: 2022-07-17 09:25:00
+author: hen
 top: false
 hide: false
-cover: true
+cover: false
 mathjax: false
+summary: MySQL8其他新特性，如窗口函数、公共表表达式等
 categories: MySQL
 tags:
   - MySQL
