@@ -11,8 +11,6 @@ tags:
 
 # 高级篇_第01章_Linux下MySQL的安装与使用
 
- 2022-06-30   [技术博客](https://new-wangz.github.io/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/)   185   [0](https://new-wangz.github.io/2022/06/30/%E9%AB%98%E7%BA%A7%E7%AF%87-%E7%AC%AC01%E7%AB%A0-Linux%E4%B8%8BMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/#valine-comments)
-
 ## **1.** **安装前说明**
 
 ------
