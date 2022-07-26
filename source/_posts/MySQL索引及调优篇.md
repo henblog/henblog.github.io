@@ -1,3 +1,23 @@
+---
+title: MySQL索引及调优
+date: 2022-07-26 05:20:00
+author: hen
+top: true
+hide: false
+cover: true
+mathjax: false
+summary: 索引的数据结构、InnoDB存储结构、索引创建、性能分析、优化、数据库设计规范
+categories: MySQL
+tags:
+  - 索引
+  - 范式
+  - 页
+  - explain
+  - 索引优化
+  - 查询优化
+  - 数据库调优
+  - 数据库
+---
 # 第06章_索引的数据结构
 
 ## 1. 为什么使用索引

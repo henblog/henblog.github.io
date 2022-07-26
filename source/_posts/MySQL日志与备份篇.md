@@ -1,3 +1,19 @@
+---
+title: MySQL日志及恢复
+date: 2022-07-26 21:52:00
+author: hen
+top: true
+hide: false
+cover: true
+mathjax: false
+summary: 数据库日志、主从复制、数据库备份与恢复
+categories: MySQL
+tags:
+  - 数据库日志
+  - 主从复制
+  - 数据迁移
+  - 数据库
+---
 # 第17章_其他数据库日志
 
 <img src="../pic/MySQL日志与备份篇/image-20220715141705004.png" alt="image-20220715141705004" style="float:left;" />

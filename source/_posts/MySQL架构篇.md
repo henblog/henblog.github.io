@@ -1,3 +1,19 @@
+---
+title: MySQL逻辑架构
+date: 2022-07-26 05:21:10
+author: hen
+top: true
+hide: false
+cover: true
+mathjax: false
+summary: 连接管理 -> 解析优化 -> 存储引擎
+categories: MySQL
+tags:
+  - sql执行流程
+  - MySQL存储引擎
+  - 数据库
+---
+
 # 第04章_逻辑架构
 
 ## 1. 逻辑架构剖析

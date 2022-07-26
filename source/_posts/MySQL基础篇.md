@@ -1,3 +1,24 @@
+---
+title: MySQL基础
+date: 2022-07-25 20:13:14
+author: hen
+top: true
+hide: false
+cover: true
+mathjax: false
+summary: 数据操纵语言DML、数据定义语言DDL、数据库中其他对象
+categories: MySQL
+tags:
+  - CRUD
+  - MySQL数据类型
+  - 约束
+  - 视图
+  - 存储过程与函数
+  - MySQL变量、流程控制、游标
+  - 触发器
+  - 数据库
+---
+
 
 
 # 导入表的问题

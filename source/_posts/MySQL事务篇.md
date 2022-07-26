@@ -1,3 +1,19 @@
+---
+title: MySQL事务
+date: 2022-07-26 15:20:00
+author: hen
+top: true
+hide: false
+cover: true
+mathjax: false
+summary: 事务、事务日志、锁、并发控制
+categories: MySQL
+tags:
+  - 数据库事务
+  - 事务日志
+  - 锁
+  - 数据库
+---
 # 第13章_事务基础知识
 
 ## 1. 数据库事务概述
