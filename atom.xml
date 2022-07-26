@@ -6,7 +6,7 @@
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-19T02:48:47.970Z</updated>
+  <updated>2022-07-26T06:54:04.094Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -15,6 +15,198 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL日志及恢复</title>
+    <link href="http://henblog.github.io/2022/07/26/mysql-ri-zhi-yu-bei-fen-pian/"/>
+    <id>http://henblog.github.io/2022/07/26/mysql-ri-zhi-yu-bei-fen-pian/</id>
+    <published>2022-07-26T13:52:00.000Z</published>
+    <updated>2022-07-26T06:54:04.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;第17章-其他数据库日志&quot;&gt;&lt;a href=&quot;#第17章-其他数据库日志&quot; class=&quot;headerlink&quot; title=&quot;第17章_其他数据库日志&quot;&gt;&lt;/a&gt;第17章_其他数据库日志&lt;/h1&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
+    
+    
+    <category term="数据迁移" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/"/>
+    
+    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="数据库日志" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97/"/>
+    
+    <category term="主从复制" scheme="http://henblog.github.io/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL事务</title>
+    <link href="http://henblog.github.io/2022/07/26/mysql-shi-wu-pian/"/>
+    <id>http://henblog.github.io/2022/07/26/mysql-shi-wu-pian/</id>
+    <published>2022-07-26T07:20:00.000Z</published>
+    <updated>2022-07-26T06:51:17.280Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;第13章-事务基础知识&quot;&gt;&lt;a href=&quot;#第13章-事务基础知识&quot; class=&quot;headerlink&quot; title=&quot;第13章_事务基础知识&quot;&gt;&lt;/a&gt;第13章_事务基础知识&lt;/h1&gt;&lt;h2 id=&quot;1-数据库事务概述&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
+    
+    
+    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="数据库事务" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"/>
+    
+    <category term="事务日志" scheme="http://henblog.github.io/tags/%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97/"/>
+    
+    <category term="锁" scheme="http://henblog.github.io/tags/%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://henblog.github.io/2022/07/26/sql-cha-xun-you-hua-qi-qian-xi/"/>
+    <id>http://henblog.github.io/2022/07/26/sql-cha-xun-you-hua-qi-qian-xi/</id>
+    <published>2022-07-26T06:08:36.100Z</published>
+    <updated>2022-07-26T06:08:36.100Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../pic/SQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%E6%B5%85%E6%9E%90/1658644379122.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL逻辑架构</title>
+    <link href="http://henblog.github.io/2022/07/26/mysql-jia-gou-pian/"/>
+    <id>http://henblog.github.io/2022/07/26/mysql-jia-gou-pian/</id>
+    <published>2022-07-25T21:21:10.000Z</published>
+    <updated>2022-07-26T07:04:05.699Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;第04章-逻辑架构&quot;&gt;&lt;a href=&quot;#第04章-逻辑架构&quot; class=&quot;headerlink&quot; title=&quot;第04章_逻辑架构&quot;&gt;&lt;/a&gt;第04章_逻辑架构&lt;/h1&gt;&lt;h2 id=&quot;1-逻辑架构剖析&quot;&gt;&lt;a href=&quot;#1-逻辑架构剖析&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
+    
+    
+    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="sql执行流程" scheme="http://henblog.github.io/tags/sql%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/"/>
+    
+    <category term="MySQL存储引擎" scheme="http://henblog.github.io/tags/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL索引及调优</title>
+    <link href="http://henblog.github.io/2022/07/26/mysql-suo-yin-ji-diao-you-pian/"/>
+    <id>http://henblog.github.io/2022/07/26/mysql-suo-yin-ji-diao-you-pian/</id>
+    <published>2022-07-25T21:20:00.000Z</published>
+    <updated>2022-07-26T07:03:24.714Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;第06章-索引的数据结构&quot;&gt;&lt;a href=&quot;#第06章-索引的数据结构&quot; class=&quot;headerlink&quot; title=&quot;第06章_索引的数据结构&quot;&gt;&lt;/a&gt;第06章_索引的数据结构&lt;/h1&gt;&lt;h2 id=&quot;1-为什么使用索引&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
+    
+    
+    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="索引" scheme="http://henblog.github.io/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+    <category term="范式" scheme="http://henblog.github.io/tags/%E8%8C%83%E5%BC%8F/"/>
+    
+    <category term="页" scheme="http://henblog.github.io/tags/%E9%A1%B5/"/>
+    
+    <category term="explain" scheme="http://henblog.github.io/tags/explain/"/>
+    
+    <category term="索引优化" scheme="http://henblog.github.io/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="查询优化" scheme="http://henblog.github.io/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="数据库调优" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B0%83%E4%BC%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL基础</title>
+    <link href="http://henblog.github.io/2022/07/25/mysql-ji-chu-pian/"/>
+    <id>http://henblog.github.io/2022/07/25/mysql-ji-chu-pian/</id>
+    <published>2022-07-25T12:13:14.000Z</published>
+    <updated>2022-07-26T07:04:36.135Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;导入表的问题&quot;&gt;&lt;a href=&quot;#导入表的问题&quot; class=&quot;headerlink&quot; title=&quot;导入表的问题&quot;&gt;&lt;/a&gt;导入表的问题&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;导入数据时外键约束问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;数据导入指令：&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
+    
+    
+    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="CRUD" scheme="http://henblog.github.io/tags/CRUD/"/>
+    
+    <category term="MySQL数据类型" scheme="http://henblog.github.io/tags/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    
+    <category term="约束" scheme="http://henblog.github.io/tags/%E7%BA%A6%E6%9D%9F/"/>
+    
+    <category term="视图" scheme="http://henblog.github.io/tags/%E8%A7%86%E5%9B%BE/"/>
+    
+    <category term="存储过程与函数" scheme="http://henblog.github.io/tags/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/"/>
+    
+    <category term="MySQL变量、流程控制、游标" scheme="http://henblog.github.io/tags/MySQL%E5%8F%98%E9%87%8F%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E3%80%81%E6%B8%B8%E6%A0%87/"/>
+    
+    <category term="触发器" scheme="http://henblog.github.io/tags/%E8%A7%A6%E5%8F%91%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>数据库概述</title>
@@ -380,168 +572,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;第14章-视图&quot;&gt;&lt;a href=&quot;#第14章-视图&quot; class=&quot;headerlink&quot; title=&quot;第14章_视图&quot;&gt;&lt;/a&gt;第14章_视图&lt;/h1&gt;&lt;h2 id=&quot;1-常见的数据库对象&quot;&gt;&lt;a href=&quot;#1-常见的数据库对象&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>存储过程与函数</title>
-    <link href="http://henblog.github.io/2022/07/17/di-15-zhang-cun-chu-guo-cheng-yu-han-shu/"/>
-    <id>http://henblog.github.io/2022/07/17/di-15-zhang-cun-chu-guo-cheng-yu-han-shu/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:18:39.924Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;第15章-存储过程与函数&quot;&gt;&lt;a href=&quot;#第15章-存储过程与函数&quot; class=&quot;headerlink&quot; title=&quot;第15章_存储过程与函数&quot;&gt;&lt;/a&gt;第15章_存储过程与函数&lt;/h1&gt;&lt;p&gt;MySQL从 5. 0</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>变量、流程控制与游标</title>
-    <link href="http://henblog.github.io/2022/07/17/di-16-zhang-bian-liang-liu-cheng-kong-zhi-yu-you-biao/"/>
-    <id>http://henblog.github.io/2022/07/17/di-16-zhang-bian-liang-liu-cheng-kong-zhi-yu-you-biao/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:19:23.943Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;第16章-变量、流程控制与游标&quot;&gt;&lt;a href=&quot;#第16章-变量、流程控制与游标&quot; class=&quot;headerlink&quot; title=&quot;第16章_变量、流程控制与游标&quot;&gt;&lt;/a&gt;第16章_变量、流程控制与游标&lt;/h1&gt;&lt;h2 id=&quot;1-变量&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>触发器</title>
-    <link href="http://henblog.github.io/2022/07/17/di-17-zhang-hong-fa-qi/"/>
-    <id>http://henblog.github.io/2022/07/17/di-17-zhang-hong-fa-qi/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:20:39.458Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;第17章-触发器&quot;&gt;&lt;a href=&quot;#第17章-触发器&quot; class=&quot;headerlink&quot; title=&quot;第17章_触发器&quot;&gt;&lt;/a&gt;第17章_触发器&lt;/h1&gt;&lt;p&gt;在实际开发中，我们经常会遇到这样的情况：有 2</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL的数据目录</title>
-    <link href="http://henblog.github.io/2022/07/17/gao-ji-pian-di-02-zhang-mysql-de-shu-ju-mu-lu/"/>
-    <id>http://henblog.github.io/2022/07/17/gao-ji-pian-di-02-zhang-mysql-de-shu-ju-mu-lu/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:24:17.217Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;高级篇-第02章-MySQL的数据目录&quot;&gt;&lt;a href=&quot;#高级篇-第02章-MySQL的数据目录&quot; class=&quot;headerlink&quot; title=&quot;高级篇-第02章-MySQL的数据目录&quot;&gt;&lt;/a&gt;高级篇-第02章-MySQL的数据目录&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL8其他新特性</title>
-    <link href="http://henblog.github.io/2022/07/17/di-18-zhang-mysql8-qi-ta-xin-te-xing/"/>
-    <id>http://henblog.github.io/2022/07/17/di-18-zhang-mysql8-qi-ta-xin-te-xing/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:21:58.065Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;第18章-MySQL8其他新特性&quot;&gt;&lt;a href=&quot;#第18章-MySQL8其他新特性&quot; class=&quot;headerlink&quot; title=&quot;第18章_MySQL8其他新特性&quot;&gt;&lt;/a&gt;第18章_MySQL8其他新特性&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux下MySQL的安装与使用</title>
-    <link href="http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong/"/>
-    <id>http://henblog.github.io/2022/07/17/gao-ji-pian-di-01-zhang-linux-xia-mysql-de-an-zhuang-yu-shi-yong/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T07:11:51.474Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;高级篇-第01章-Linux下MySQL的安装与使用&quot;&gt;&lt;a href=&quot;#高级篇-第01章-Linux下MySQL的安装与使用&quot; class=&quot;headerlink&quot;</summary>
         
       
     
