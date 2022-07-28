@@ -6,7 +6,7 @@
   <link href="http://henblog.github.io/atom.xml" rel="self"/>
   
   <link href="http://henblog.github.io/"/>
-  <updated>2022-07-26T06:54:04.094Z</updated>
+  <updated>2022-07-28T09:17:47.489Z</updated>
   <id>http://henblog.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于license3j实现简单的License验证</title>
+    <link href="http://henblog.github.io/2022/07/28/ji-yu-license3j-dui-license-shou-quan-de-yi-chong-shi-xian/"/>
+    <id>http://henblog.github.io/2022/07/28/ji-yu-license3j-dui-license-shou-quan-de-yi-chong-shi-xian/</id>
+    <published>2022-07-28T09:21:00.000Z</published>
+    <updated>2022-07-28T09:17:47.489Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基于license3j实现简单的License验证&quot;&gt;&lt;a href=&quot;#基于license3j实现简单的License验证&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="license" scheme="http://henblog.github.io/categories/license/"/>
+    
+    
+    <category term="license" scheme="http://henblog.github.io/tags/license/"/>
+    
+    <category term="授权" scheme="http://henblog.github.io/tags/%E6%8E%88%E6%9D%83/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL日志及恢复</title>
@@ -83,14 +110,14 @@
     <link href="http://henblog.github.io/2022/07/26/sql-cha-xun-you-hua-qi-qian-xi/"/>
     <id>http://henblog.github.io/2022/07/26/sql-cha-xun-you-hua-qi-qian-xi/</id>
     <published>2022-07-26T06:08:36.100Z</published>
-    <updated>2022-07-26T06:08:36.100Z</updated>
+    <updated>2022-07-26T09:58:44.662Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../pic/SQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%E6%B5%85%E6%9E%90/1658644379122.png&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;SQL逻辑框架和sql执行流程&quot;&gt;&lt;a href=&quot;#SQL逻辑框架和sql执行流程&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -545,33 +572,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;第12章-MySQL数据类型精讲&quot;&gt;&lt;a href=&quot;#第12章-MySQL数据类型精讲&quot; class=&quot;headerlink&quot; title=&quot;第12章_MySQL数据类型精讲&quot;&gt;&lt;/a&gt;第12章_MySQL数据类型精讲&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="http://henblog.github.io/categories/MySQL/"/>
-    
-    
-    <category term="数据库" scheme="http://henblog.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://henblog.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>视图</title>
-    <link href="http://henblog.github.io/2022/07/17/di-14-zhang-shi-tu/"/>
-    <id>http://henblog.github.io/2022/07/17/di-14-zhang-shi-tu/</id>
-    <published>2022-07-17T01:25:00.000Z</published>
-    <updated>2022-07-19T03:16:31.575Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;第14章-视图&quot;&gt;&lt;a href=&quot;#第14章-视图&quot; class=&quot;headerlink&quot; title=&quot;第14章_视图&quot;&gt;&lt;/a&gt;第14章_视图&lt;/h1&gt;&lt;h2 id=&quot;1-常见的数据库对象&quot;&gt;&lt;a href=&quot;#1-常见的数据库对象&quot;</summary>
         
       
     
