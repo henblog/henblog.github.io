@@ -134,8 +134,7 @@ Time taken: 0.081 seconds, Fetched: 2 row(s)
 ```
 select get_json_object(t.json,'$.id'), get_json_object(t.json,'$.total_number') from tmp_json_test t ; 
  
-select t2.* from tmp_json_test t1 lateral view json_tuple(t1.json, 'id', 'total_number') t2 as c1, c2;
- 
- 方法一使用函数get_json_object  ， 方法二使用函数 json_tuple
+select t2.* from tablename t1 lateral view json_tuple(t1.jsonfield, 'id', 'total_number') t2 as c1, c2;
 ```
 
+方法一使用函数get_json_object  ， 方法二使用函数 [json_tuple](https://blog.csdn.net/weixin_38750084/article/details/104443016)
