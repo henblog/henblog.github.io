@@ -193,13 +193,14 @@ group by recent_day,`source`,`target`
 
 ### 用户留存率
 
-**求新增用户(7天内注册)的当日留存(今日活跃)率**
+用户在某段时间内开始使用应用，经过一段时间后，仍然继续使用该应用的用户为留存用户。
 
-1. **新增留存分析**是分析某天的新增用户中，有多少人有后续的活跃行为。
-2. **活跃留存分析**是分析某天的活跃用户中，有多少人有后续的活跃行为。
-3. **留存率**是指留存用户数和新用户数的比值。
+**求新增用户的当日/次日/3日留存(今日活跃)率**
 
-- 建表(粒度为)：
+1. **新增用户留存率=新增用户中登录用户数/新增用户数*100%（一般统计周期为天）**
+2. **第N日留存：指的是用户新增日之后的第N日依然登录的用户占新增用户的比例**
+
+- 建表()：
 
   ```sql
   create external table test_yhzc(
@@ -225,21 +226,17 @@ group by recent_day,`source`,`target`
   vim yhdl.txt
   u1	2022-08-23
   u2	2022-08-23
-  u3	2022-08-23
-  u4	2022-08-24
-  u5	2022-08-24
-  u6	2022-08-24
-  u7	2022-08-24
-  u8	2022-08-23
-  u9	2022-08-24
+  u1	2022-08-24
+  u2	2022-08-24
+  u2	2022-08-25
+  u3	2022-08-25
+  u4	2022-08-25
   
   vim yhzc.txt
-  u1	2022-08-16
-  u3	2022-08-18
-  u4	2022-08-18
-  u6	2022-08-21
-  u8	2022-08-23
-  u9	2022-08-23
+  u1	2022-08-23
+  u2	2022-08-23
+  u3	2022-08-24
+  u4	2022-08-24
   
   hdfs dfs -mkdir -p /test/yhdl
   hdfs dfs -mkdir -p /test/yhzc
@@ -249,8 +246,26 @@ group by recent_day,`source`,`target`
 
 - 查询：
 
-  ```
-  
+  ```sql
+  SELECT 
+      '2022-08-23' dt,
+      COUNT(*) new_user_cnt, 
+      concat(CAST(COUNT(t0.user_id)/count(first_login)*100 as decimal(16,2)),'%') today_retention_rate,
+      concat(CAST(COUNT(t1.user_id)/count(first_login)*100 as decimal(16,2)),'%') day1_retention_rate,
+      concat(CAST(COUNT(t2.user_id)/count(first_login)*100 as decimal(16,2)),'%') day2_retention_rate,
+      concat(CAST(COUNT(t3.user_id)/count(first_login)*100 as decimal(16,2)),'%') day3_retention_rate
+  FROM (
+      SELECT 
+          user_id,
+          first_login
+      from test_yhzc 
+      where first_login ='2022-08-23'
+  )xyh left join test_yhdl t0 on xyh.user_id = t0.user_id and DATEDIFF(t0.last_login,first_login)=0
+  left join test_yhdl t1 on xyh.user_id = t1.user_id and DATEDIFF(t1.last_login,first_login)=1
+  left join test_yhdl t2 on xyh.user_id = t2.user_id and DATEDIFF(t2.last_login,first_login)=2
+  left join test_yhdl t3 on xyh.user_id = t3.user_id and DATEDIFF(t3.last_login,first_login)=3
+  group by first_login
+  ;
   ```
 
 
